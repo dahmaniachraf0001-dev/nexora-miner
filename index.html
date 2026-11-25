@@ -31,6 +31,7 @@ body::before{
     radial-gradient(#ff8bdc 1px,transparent 1.5px);
     background-size:90px 90px,140px 140px;
     opacity:.3;
+    z-index:0;
 }
 
 button{
@@ -63,6 +64,8 @@ button:disabled{
     align-items:center;
     text-align:center;
     padding:25px;
+    position:relative;
+    z-index:1;
 }
 
 .moon{
@@ -94,11 +97,13 @@ button:disabled{
     width:min(94%,900px);
     margin:22px auto;
     padding:25px 20px;
-    background:rgba(44,17,56,.75);
+    background:rgba(44,17,56,.85);
     border:1px solid #d76bb5;
     border-radius:24px;
     box-shadow:0 0 25px #d34fa51c;
     backdrop-filter:blur(8px);
+    position:relative;
+    z-index:1;
 }
 
 h2{
@@ -144,7 +149,7 @@ h2{
 }
 
 .card h3{color:#ffd0ef;margin:0}
-.card p{font-size:14px;color:#e3c5ee}
+.card p{font-size:14px;color:#e3c5ee;line-height:1.9}
 
 .lockInfo{
     font-size:13px;
@@ -201,6 +206,8 @@ h2{
     box-shadow:none;
     font-size:32px;
     animation:float 2s infinite alternate;
+    min-width:40px;
+    min-height:40px;
 }
 
 @keyframes float{
@@ -241,11 +248,41 @@ h2{
     }
 }
 
+.reasonCard{
+    transition:.4s;
+}
+
+.reasonCard.revealed{
+    border-color:#ff9cde;
+    box-shadow:0 0 20px #ff69c755;
+    background:linear-gradient(145deg,#632451,#32143e);
+}
+
+.reasonText{
+    color:#ffe0f4!important;
+    animation:fadeIn .8s ease;
+}
+
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(12px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+#allReasons{
+    font-family:'Amiri',serif;
+    font-size:23px;
+    line-height:2;
+    color:#ffc9ee;
+    animation:fadeIn 1s ease;
+}
+
 footer{
     text-align:center;
     padding:35px 10px;
     color:#e8b5ed;
     font-family:'Amiri',serif;
+    position:relative;
+    z-index:1;
 }
 
 @media(max-width:650px){
@@ -258,8 +295,6 @@ footer{
 </head>
 
 <body>
-
-<!-- شاشة البداية -->
 
 <header class="hero" id="welcome">
 
@@ -307,6 +342,73 @@ footer{
 
 </section>
 
+<!-- أسباب الحب التفاعلية -->
+
+<section class="section" id="reasons">
+
+    <h2>لماذا أحبك يا منورتي؟ 💗</h2>
+
+    <p style="text-align:center">
+        هناك أشياء كثيرة أحبها فيكِ...
+        اضغطي على كل قلب لتكتشفي واحدًا منها.
+    </p>
+
+    <div class="cards">
+
+        <div class="card reasonCard" id="reasonCard0">
+            <h3>❤️ Your Smile</h3>
+            <button onclick="revealReason(0)">افتحي قلبي</button>
+            <p id="reason0" class="hidden reasonText">
+                لأن ابتسامتك تجعل أصعب أيامي أخف وأجمل.
+            </p>
+        </div>
+
+        <div class="card reasonCard" id="reasonCard1">
+            <h3>🌷 Your Personality</h3>
+            <button onclick="revealReason(1)">افتحي قلبي</button>
+            <p id="reason1" class="hidden reasonText">
+                لأنكِ أنتِ، بتفاصيلك وعفويتك، لا تشبهين أحدًا.
+            </p>
+        </div>
+
+        <div class="card reasonCard" id="reasonCard2">
+            <h3>🌙 Your Presence</h3>
+            <button onclick="revealReason(2)">افتحي قلبي</button>
+            <p id="reason2" class="hidden reasonText">
+                لأن وجودك وحده يجعل العالم أكثر دفئًا.
+            </p>
+        </div>
+
+        <div class="card reasonCard" id="reasonCard3">
+            <h3>💞 Our Memories</h3>
+            <button onclick="revealReason(3)">افتحي قلبي</button>
+            <p id="reason3" class="hidden reasonText">
+                لأن أجمل ما في بعض أيامي هو أنها تحمل ذكراكِ.
+            </p>
+        </div>
+
+        <div class="card reasonCard" id="reasonCard4">
+            <h3>✨ Your Heart</h3>
+            <button onclick="revealReason(4)">افتحي قلبي</button>
+            <p id="reason4" class="hidden reasonText">
+                لأن قلبك يستحق حبًا صادقًا واهتمامًا لا ينتهي.
+            </p>
+        </div>
+
+        <div class="card reasonCard" id="reasonCard5">
+            <h3>💍 Simply You</h3>
+            <button onclick="revealReason(5)">افتحي قلبي</button>
+            <p id="reason5" class="hidden reasonText">
+                لأنني لا أحتاج إلى سبب جديد لأحبك، فأنتِ السبب كله.
+            </p>
+        </div>
+
+    </div>
+
+    <p class="signature" id="allReasons"></p>
+
+</section>
+
 <!-- الرسائل الثلاث -->
 
 <section class="section">
@@ -322,38 +424,29 @@ footer{
         <div class="card">
             <h3>🌷 عندما تشتاقين إليّ</h3>
             <p>رسالة صغيرة تذكركِ كم أنتِ قريبة من قلبي.</p>
-            <button id="btn0" onclick="showLetter(0)">
-                افتحي الرسالة
-            </button>
+            <button id="btn0" onclick="showLetter(0)">افتحي الرسالة</button>
             <div class="lockInfo" id="info0"></div>
         </div>
 
         <div class="card">
             <h3>🌙 عندما يتعب قلبك</h3>
             <p>تذكير بأنكِ لستِ وحدك.</p>
-            <button id="btn1" onclick="showLetter(1)" disabled>
-                🔒 مغلقة
-            </button>
+            <button id="btn1" onclick="showLetter(1)" disabled>🔒 مغلقة</button>
             <div class="lockInfo" id="info1"></div>
         </div>
 
         <div class="card">
             <h3>💞 شيء لم أخبركِ به</h3>
             <p>كلمات خبأتها لكِ لتصل في وقتها.</p>
-            <button id="btn2" onclick="showLetter(2)" disabled>
-                🔒 مغلقة
-            </button>
+            <button id="btn2" onclick="showLetter(2)" disabled>🔒 مغلقة</button>
             <div class="lockInfo" id="info2"></div>
         </div>
 
     </div>
 
     <div id="letterDisplay" class="hidden">
-
         <h2 id="letterTitle"></h2>
-
         <div class="letter" id="letterBody"></div>
-
     </div>
 
 </section>
@@ -368,9 +461,7 @@ footer{
         التقطي 10 قلوب لتكتشفي رسالة صغيرة منّي.
     </p>
 
-    <div class="score" id="score">
-        القلوب: 0 / 10
-    </div>
+    <div class="score" id="score">القلوب: 0 / 10</div>
 
     <div class="gameArea" id="gameArea"></div>
 
@@ -390,15 +481,13 @@ footer{
 
 </section>
 
-<!-- عداد العلاقة بدون صور -->
+<!-- عداد العلاقة -->
 
 <section class="section">
 
     <h2>منذ أن بدأت حكايتنا ❤️</h2>
 
-    <p style="text-align:center">
-        3 نوفمبر 2022
-    </p>
+    <p style="text-align:center">3 نوفمبر 2022</p>
 
     <div class="timer" id="timer"></div>
 
@@ -416,9 +505,7 @@ footer{
 
     <p>هناك شيء صغير ينتظر منكِ الضغط...</p>
 
-    <button onclick="showSurprise()">
-        افتحي مفاجأتك ✨
-    </button>
+    <button onclick="showSurprise()">افتحي مفاجأتك ✨</button>
 
     <div id="surpriseText" class="hidden surpriseText">
 يا منورتي،
@@ -447,13 +534,9 @@ footer{
 function openSite(){
 
     document.getElementById("welcome").style.display="none";
-
     document.getElementById("content").classList.remove("hidden");
 
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
+    window.scrollTo({top:0,behavior:"smooth"});
 
     for(let i=0;i<12;i++){
         setTimeout(()=>{
@@ -462,6 +545,35 @@ function openSite(){
                 window.innerHeight/2
             );
         },i*100);
+    }
+}
+
+/* أسباب الحب */
+
+const revealedReasons=new Set();
+
+function revealReason(index){
+
+    const reason=document.getElementById("reason"+index);
+    const card=document.getElementById("reasonCard"+index);
+
+    if(!reason || revealedReasons.has(index))return;
+
+    reason.classList.remove("hidden");
+    card.classList.add("revealed");
+
+    revealedReasons.add(index);
+
+    createHeart(
+        window.innerWidth/2,
+        window.innerHeight/2
+    );
+
+    if(revealedReasons.size===6){
+
+        document.getElementById("allReasons").textContent=
+        "And after all these reasons... I still have a million more. I love you, Monwarty. ❤️";
+
     }
 }
 
@@ -553,8 +665,6 @@ function formatTime(ms){
     return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
 }
 
-/* تحديث أزرار الرسائل */
-
 function updateLetters(){
 
     for(let i=0;i<3;i++){
@@ -563,50 +673,32 @@ function updateLetters(){
         const info=document.getElementById("info"+i);
 
         if(data.opened[i]){
-
             btn.disabled=false;
             btn.textContent="إعادة قراءة الرسالة ❤️";
             info.textContent="هذه الرسالة أصبحت لكِ دائمًا.";
-
         }
-
         else if(canOpen(i)){
-
             btn.disabled=false;
             btn.textContent="افتحي الرسالة 💌";
             info.textContent="وصل وقت رسالتك.";
-
         }
-
         else{
-
             btn.disabled=true;
             btn.textContent="🔒 مغلقة";
-
-            info.textContent=
-            "تفتح بعد: "+
-            formatTime(unlockAfter[i]-elapsed());
-
+            info.textContent="تفتح بعد: "+formatTime(unlockAfter[i]-elapsed());
         }
-
     }
-
 }
-
-/* عرض رسالة */
 
 function showLetter(i){
 
-    if(!canOpen(i)&&!data.opened[i]){
-        return;
-    }
+    if(!canOpen(i)&&!data.opened[i])return;
 
     data.opened[i]=true;
 
     localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
 
     document.getElementById("letterTitle").textContent=letters[i].title;
-
     document.getElementById("letterBody").textContent=letters[i].text;
 
     document.getElementById("letterDisplay").classList.remove("hidden");
@@ -617,7 +709,6 @@ function showLetter(i){
     });
 
     updateLetters();
-
 }
 
 /* عداد العلاقة */
@@ -629,15 +720,12 @@ function updateTimer(){
     let diff=Math.max(0,Date.now()-start.getTime());
 
     let days=Math.floor(diff/86400000);
-
     diff%=86400000;
 
     let hours=Math.floor(diff/3600000);
-
     diff%=3600000;
 
     let minutes=Math.floor(diff/60000);
-
     diff%=60000;
 
     let seconds=Math.floor(diff/1000);
@@ -666,7 +754,6 @@ function updateTimer(){
     `;
 
     updateLetters();
-
 }
 
 setInterval(updateTimer,1000);
@@ -689,10 +776,7 @@ function createHeart(x,y){
 
     document.body.appendChild(heart);
 
-    setTimeout(()=>{
-        heart.remove();
-    },1500);
-
+    setTimeout(()=>heart.remove(),1500);
 }
 
 document.addEventListener("click",function(e){
@@ -700,7 +784,6 @@ document.addEventListener("click",function(e){
     if(e.target.closest("button")){
         createHeart(e.clientX,e.clientY);
     }
-
 });
 
 /* لعبة جمع 10 قلوب */
@@ -714,7 +797,6 @@ function spawnHeart(){
     if(!gameRunning)return;
 
     const area=document.getElementById("gameArea");
-
     const heart=document.createElement("button");
 
     heart.className="gameHeart";
@@ -735,7 +817,6 @@ function spawnHeart(){
         "القلوب: "+score+" / 10";
 
         const rect=heart.getBoundingClientRect();
-
         createHeart(rect.left,rect.top);
 
         heart.remove();
@@ -743,6 +824,8 @@ function spawnHeart(){
         if(score>=10){
 
             gameRunning=false;
+            gameTimers.forEach(clearTimeout);
+            gameTimers=[];
 
             area.innerHTML="✨ لقد جمعتِ كل القلوب ✨";
 
@@ -753,19 +836,18 @@ function spawnHeart(){
         }else{
             spawnHeart();
         }
-
     };
 
     const timer=setTimeout(()=>{
 
-        if(heart.isConnected&&gameRunning){
+        if(heart.isConnected && gameRunning){
             heart.remove();
+            spawnHeart();
         }
 
     },4000);
 
     gameTimers.push(timer);
-
 }
 
 function startGame(){
@@ -777,17 +859,13 @@ function startGame(){
     gameRunning=true;
 
     document.getElementById("score").textContent="القلوب: 0 / 10";
-
     document.getElementById("gameWin").classList.add("hidden");
-
     document.getElementById("gameArea").innerHTML="";
-
     document.getElementById("startGame").textContent="اللعبة بدأت...";
 
     for(let i=0;i<4;i++){
         spawnHeart();
     }
-
 }
 
 /* المفاجأة */
@@ -804,16 +882,12 @@ function showSurprise(){
     for(let i=0;i<20;i++){
 
         setTimeout(()=>{
-
             createHeart(
                 Math.random()*window.innerWidth,
                 window.innerHeight*.7
             );
-
         },i*100);
-
     }
-
 }
 
 </script>
