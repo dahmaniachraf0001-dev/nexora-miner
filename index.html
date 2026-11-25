@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXORA Miner</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:#080d17;
+  color:#fff;
+  font-family:Arial,sans-serif;
+  min-height:100vh;
+}
+.app{
+  max-width:480px;
+  margin:auto;
+  min-height:100vh;
+  padding:22px 18px 100px;
+  background:linear-gradient(180deg,#101b2c,#080d17);
+}
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.logo{
+  width:46px;height:46px;
+  border-radius:15px;
+  background:linear-gradient(135deg,#39e58c,#0e9c60);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:18px;
+  color:#07150e;
+}
+.brand h1{font-size:19px}
+.brand p{font-size:11px;color:#8997ac;margin-top:4px}
+.avatar{
+  width:40px;height:40px;border-radius:50%;
+  background:#182438;
+  display:flex;align-items:center;justify-content:center;
+  color:#56e49a;font-size:18px;
+}
+.badge{
+  margin-top:30px;
+  background:#142238;
+  border:1px solid #253751;
+  border-radius:12px;
+  padding:12px;
+  text-align:center;
+  color:#68e7a5;
+  font-size:12px;
+  letter-spacing:2px;
+}
+.balance{
+  text-align:center;
+  margin-top:28px;
+}
+.balance .label{color:#8d9bb0;font-size:13px}
+.balance h2{
+  font-size:38px;
+  margin-top:9px;
+  color:#fff;
+}
+.balance h2 span{color:#5be69b}
+.coin-area{
+  display:flex;
+  justify-content:center;
+  margin:30px 0;
+}
+.coin{
+  width:185px;height:185px;border-radius:50%;
+  background:radial-gradient(circle at 30% 25%,#b7ffcf,#42d889 40%,#13824f 75%,#0c5136);
+  box-shadow:0 0 45px #35d47a33, inset 0 0 20px #ffffff33;
+  border:5px solid #237c51;
+  display:flex;align-items:center;justify-content:center;
+  color:#07331e;font-size:55px;font-weight:900;
+  position:relative;
+}
+.coin:after{
+  content:"N";
+  position:absolute;
+  font-size:72px;
+  font-weight:900;
+  color:#063c23;
+  text-shadow:2px 3px #ffffff22;
+}
+.rate{
+  text-align:center;color:#9aa8bd;font-size:13px;
+  margin-top:-8px;
+}
+.rate strong{color:#59e49a}
+.mine-btn{
+  margin-top:25px;
+  width:100%;
+  padding:18px;
+  border:0;border-radius:16px;
+  background:linear-gradient(90deg,#25bb75,#4ae69a);
+  color:#062313;font-size:17px;font-weight:800;
+}
+.mine-btn:active{transform:scale(.98)}
+.cards{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:12px;margin-top:25px;
+}
+.card{
+  background:#111c2d;border:1px solid #23334b;
+  border-radius:15px;padding:16px;
+}
+.card small{color:#8999af;font-size:12px}
+.card h3{margin-top:9px;font-size:19px}
+.card h3.green{color:#5be69b}
+.section-title{
+  margin:28px 0 14px;font-size:17px;
+}
+.task{
+  display:flex;align-items:center;gap:12px;
+  padding:14px;background:#111c2d;
+  border:1px solid #23334b;border-radius:14px;
+  margin-bottom:10px;
+}
+.task-icon{
+  width:42px;height:42px;border-radius:12px;
+  background:#1c2c43;display:flex;align-items:center;
+  justify-content:center;font-size:20px;
+}
+.task-info{flex:1}
+.task-info strong{font-size:13px}
+.task-info small{display:block;color:#8b9ab0;margin-top:5px}
+.task button,.invite-btn{
+  border:0;border-radius:10px;
+  background:#31c77f;color:#072515;
+  padding:10px 12px;font-weight:bold;
+}
+.invite{
+  background:#111c2d;border:1px solid #23334b;
+  border-radius:15px;padding:18px;margin-top:20px;
+}
+.invite p{color:#91a0b6;font-size:13px;line-height:1.5;margin:10px 0}
+.invite-btn{width:100%;padding:14px}
+.nav{
+  position:fixed;bottom:0;left:0;right:0;
+  max-width:480px;margin:auto;
+  background:#0c1422;border-top:1px solid #23334b;
+  display:flex;justify-content:space-around;
+  padding:12px 5px calc(12px + env(safe-area-inset-bottom));
+}
+.nav button{
+  border:0;background:none;color:#8291a8;
+  font-size:11px;display:flex;flex-direction:column;
+  align-items:center;gap:5px;
+}
+.nav button span{font-size:20px}
+.nav button.active{color:#56e49a}
+.hidden{display:none}
+.footer-note{
+  text-align:center;color:#65748b;
+  font-size:10px;margin-top:25px;line-height:1.6
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <div class="brand">
+      <div class="logo">NX</div>
+      <div>
+        <h1>NEXORA Miner</h1>
+        <p>Mine the future</p>
+      </div>
+    </div>
+    <div class="avatar">👤</div>
+  </header>
+
+  <div class="badge">● NEXORA MINING NETWORK</div>
+
+  <div class="balance">
+    <div class="label">Your total balance</div>
+    <h2><span id="balance">0.00</span> <span style="font-size:17px">NX</span></h2>
+  </div>
+
+  <div class="coin-area">
+    <div class="coin"></div>
+  </div>
+
+  <div class="rate">
+    Mining rate: <strong>0.25 NX / hour</strong>
+  </div>
+
+  <button class="mine-btn" id="mineBtn">⚡ START MINING</button>
+
+  <div class="cards">
+    <div class="card">
+      <small>Mining status</small>
+      <h3 class="green" id="status">Inactive</h3>
+    </div>
+    <div class="card">
+      <small>Mining time</small>
+      <h3 id="time">00:00:00</h3>
+    </div>
+  </div>
+
+  <h2 class="section-title">Daily tasks</h2>
+
+  <div class="task">
+    <div class="task-icon">📢</div>
+    <div class="task-info">
+      <strong>Join our community</strong>
+      <small>Reward: 100 NX</small>
+    </div>
+    <button onclick="completeTask(this,100)">Claim</button>
+  </div>
+
+  <div class="task">
+    <div class="task-icon">🚀</div>
+    <div class="task-info">
+      <strong>Explore NEXORA</strong>
+      <small>Reward: 50 NX</small>
+    </div>
+    <button onclick="completeTask(this,50)">Claim</button>
+  </div>
+
+  <div class="invite">
+    <h3>👥 Invite friends</h3>
+    <p>Invite friends to join NEXORA and grow your community.</p>
+    <button class="invite-btn" onclick="shareInvite()">INVITE FRIENDS</button>
+  </div>
+
+  <h2 class="section-title">Your statistics</h2>
+  <div class="cards">
+    <div class="card">
+      <small>Total mined</small>
+      <h3 id="totalMined">0.00 NX</h3>
+    </div>
+    <div class="card">
+      <small>Referrals</small>
+      <h3 id="referrals">0</h3>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    DEMO VERSION · NX points are not a real cryptocurrency.<br>
+    No monetary value or guaranteed airdrop.
+  </div>
+</div>
+
+<nav class="nav">
+  <button class="active"><span>⛏️</span>Mine</button>
+  <button onclick="showTasks()"><span>🎯</span>Tasks</button>
+  <button onclick="shareInvite()"><span>👥</span>Friends</button>
+  <button onclick="showStats()"><span>📊</span>Stats</button>
+</nav>
+
+<script>
+const tg = window.Telegram?.WebApp;
+if(tg){tg.ready();tg.expand();}
+
+let balance = Number(localStorage.getItem("nx_balance") || 0);
+let total = Number(localStorage.getItem("nx_total") || 0);
+let start = Number(localStorage.getItem("nx_start") || 0);
+let taskDone = JSON.parse(localStorage.getItem("nx_tasks") || "[]");
+let rate = 0.25;
+let miningDuration = 8*60*60;
+
+const balanceEl = document.getElementById("balance");
+const totalEl = document.getElementById("totalMined");
+const statusEl = document.getElementById("status");
+const timeEl = document.getElementById("time");
+const mineBtn = document.getElementById("mineBtn");
+
+function save(){
+  localStorage.setItem("nx_balance",balance);
+  localStorage.setItem("nx_total",total);
+  localStorage.setItem("nx_start",start);
+  localStorage.setItem("nx_tasks",JSON.stringify(taskDone));
+}
+
+function render(){
+  const now=Date.now();
+  let earned=0;
+  if(start){
+    const elapsed=Math.min((now-start)/1000,miningDuration);
+    earned=elapsed/3600*rate;
+    statusEl.textContent=elapsed>=miningDuration?"Ready to collect":"Mining";
+    timeEl.textContent=formatTime(elapsed);
+    mineBtn.textContent=elapsed>=miningDuration?"🎁 COLLECT REWARD":"⚡ MINING ACTIVE";
+  }else{
+    statusEl.textContent="Inactive";
+    timeEl.textContent="00:00:00";
+    mineBtn.textContent="⚡ START MINING";
+  }
+  balanceEl.textContent=(balance+earned).toFixed(4);
+  totalEl.textContent=(total+earned).toFixed(4)+" NX";
+}
+
+function formatTime(s){
+  s=Math.floor(s);
+  return [Math.floor(s/3600),Math.floor(s%3600/60),s%60]
+    .map(v=>String(v).padStart(2,"0")).join(":");
+}
+
+mineBtn.onclick=function(){
+  if(!start){
+    start=Date.now();
+    save();
+    render();
+    return;
+  }
+  const elapsed=Math.min((Date.now()-start)/1000,miningDuration);
+  if(elapsed<miningDuration){
+    alert("Mining is active! Come back later to collect.");
+    return;
+  }
+  const earned=elapsed/3600*rate;
+  balance+=earned;
+  total+=earned;
+  start=0;
+  save();
+  render();
+};
+
+function completeTask(btn,reward){
+  const id=btn.parentElement.querySelector("strong").textContent;
+  if(taskDone.includes(id)){
+    alert("Task already claimed!");
+    return;
+  }
+  taskDone.push(id);
+  balance+=reward;
+  save();
+  render();
+  btn.textContent="Done";
+  btn.disabled=true;
+}
+
+function shareInvite(){
+  const link="https://t.me/NXR_Mining_bot";
+  const text="Join NEXORA Miner!";
+  if(tg){
+    tg.openTelegramLink("https://t.me/share/url?url="+encodeURIComponent(link)+"&text="+encodeURIComponent(text));
+  }else{
+    navigator.clipboard?.writeText(link);
+    alert("Referral link copied!");
+  }
+}
+
+function showTasks(){
+  document.querySelector(".section-title").scrollIntoView({behavior:"smooth"});
+}
+function showStats(){
+  document.querySelector(".cards:last-of-type").scrollIntoView({behavior:"smooth"});
+}
+
+taskDone.forEach(name=>{
+  document.querySelectorAll(".task").forEach(task=>{
+    if(task.querySelector("strong").textContent===name){
+      const btn=task.querySelector("button");
+      btn.textContent="Done";
+      btn.disabled=true;
+    }
+  });
+});
+
+render();
+setInterval(render,1000);
+</script>
+</body>
+</html>
