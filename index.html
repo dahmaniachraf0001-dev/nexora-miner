@@ -1,345 +1,822 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NEXORA Miner</title>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#18091f">
+<title>إلى منورتي ❤️</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@400;700&display=swap');
+
 *{box-sizing:border-box}
+
 body{
- margin:0;background:#0b1220;color:white;
- font-family:Arial,sans-serif
+    margin:0;
+    color:#fff0fa;
+    font-family:'Cairo',sans-serif;
+    background:radial-gradient(circle at top,#54205e,#210d30 45%,#100717 100%);
+    min-height:100vh;
+    overflow-x:hidden;
 }
-.app{max-width:460px;margin:auto;padding:20px 17px 100px}
-header{display:flex;align-items:center;gap:12px;margin:10px 0 25px}
-.logo{width:48px;height:48px;border-radius:15px;background:#27d474;color:#07150d;display:grid;place-items:center;font-weight:bold;font-size:25px}
-header h2{margin:0;font-size:21px}
-header p{margin:4px 0;color:#8396ad;font-size:11px;letter-spacing:2px}
-.balance-card,.card{background:#142135;border:1px solid #243650;border-radius:20px;padding:20px;margin-bottom:15px}
-.balance-card{text-align:center}
-.label{color:#91a4bc;font-size:13px}
-.balance{color:#42e78a;font-size:38px;font-weight:bold;margin:12px 0}
-.btn{border:0;border-radius:14px;padding:15px;width:100%;background:#29d375;color:#07150d;font-weight:bold;font-size:16px;margin-top:12px}
-.btn:disabled{background:#28384e;color:#8b9bb0}
-.secondary{background:#24344a;color:white}
-h3{margin:0 0 15px;font-size:18px}
-.small{color:#8fa1b8;font-size:13px}
-.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.timer{font-size:27px;font-weight:bold;margin-top:12px}
-.page{display:none}
-.page.active{display:block}
-.task{background:#101b2c;padding:15px;border-radius:15px;margin-top:12px}
-.task button{width:auto;padding:10px 15px;font-size:13px}
-.nav{
- position:fixed;bottom:0;left:0;right:0;background:#101b2a;
- border-top:1px solid #26364b;display:flex;justify-content:center;
- padding:10px 2px;z-index:10
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background-image:
+    radial-gradient(#fff 1px,transparent 1.5px),
+    radial-gradient(#ff8bdc 1px,transparent 1.5px);
+    background-size:90px 90px,140px 140px;
+    opacity:.3;
 }
-.nav-inner{width:100%;max-width:460px;display:flex;justify-content:space-around}
-.nav button{border:0;background:none;color:#8596ab;font-size:11px;padding:7px 4px}
-.nav button.active{color:#40e58a}
-.nav span{display:block;font-size:20px;margin-bottom:4px}
-.rank{display:flex;align-items:center;justify-content:space-between;padding:14px;background:#101b2c;border-radius:13px;margin:9px 0}
-.rank-left{display:flex;align-items:center;gap:12px}
-.rank-num{color:#41df85;font-weight:bold;width:22px}
-.avatar{width:37px;height:37px;border-radius:50%;background:#263952;display:grid;place-items:center}
-input{width:100%;padding:13px;background:#0b1422;color:white;border:1px solid #31435b;border-radius:12px}
+
+button{
+    font-family:'Cairo',sans-serif;
+    border:1px solid #ff85d7;
+    color:white;
+    padding:12px 24px;
+    border-radius:50px;
+    cursor:pointer;
+    background:linear-gradient(135deg,#a32c85,#702c9c);
+    box-shadow:0 0 20px #ff69c755;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.04);
+    box-shadow:0 0 30px #ff69c788;
+}
+
+button:disabled{
+    opacity:.45;
+    cursor:not-allowed;
+}
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:25px;
+}
+
+.moon{
+    font-size:90px;
+    filter:drop-shadow(0 0 25px #e68aff);
+    animation:moonFloat 4s ease-in-out infinite;
+}
+
+@keyframes moonFloat{
+    50%{transform:translateY(-12px)}
+}
+
+.hero h1{
+    font-family:'Amiri',serif;
+    color:#ffc9ee;
+    font-size:clamp(45px,10vw,75px);
+    text-shadow:0 0 25px #ff68c6;
+    margin:10px 0;
+}
+
+.hero p{
+    font-family:'Amiri',serif;
+    font-size:22px;
+    color:#f4d5fa;
+    line-height:1.9;
+}
+
+.section{
+    width:min(94%,900px);
+    margin:22px auto;
+    padding:25px 20px;
+    background:rgba(44,17,56,.75);
+    border:1px solid #d76bb5;
+    border-radius:24px;
+    box-shadow:0 0 25px #d34fa51c;
+    backdrop-filter:blur(8px);
+}
+
+h2{
+    text-align:center;
+    color:#ffc6eb;
+    font-family:'Amiri',serif;
+    font-size:29px;
+    margin-top:0;
+}
+
+.letter{
+    font-family:'Amiri',serif;
+    font-size:21px;
+    line-height:2.1;
+    text-align:center;
+    white-space:pre-line;
+}
+
+.signature{
+    text-align:center;
+    color:#e9b5f4;
+    font-family:'Amiri',serif;
+}
+
+.hidden{display:none!important}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+}
+
+.card{
+    padding:18px 12px;
+    background:linear-gradient(145deg,#431c51,#241130);
+    border:1px solid #b857a8;
+    border-radius:20px;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    gap:12px;
+}
+
+.card h3{color:#ffd0ef;margin:0}
+.card p{font-size:14px;color:#e3c5ee}
+
+.lockInfo{
+    font-size:13px;
+    color:#dfb6e9;
+    min-height:25px;
+}
+
+#letterDisplay{
+    margin-top:20px;
+    background:#190d24;
+    padding:20px;
+    border-radius:18px;
+    border:1px solid #b65ba8;
+}
+
+.timer{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.timebox{
+    background:#3b1b4b;
+    border:1px solid #b65ba8;
+    border-radius:12px;
+    padding:10px;
+    min-width:70px;
+    text-align:center;
+}
+
+.timebox strong{
+    display:block;
+    color:#ffd2ed;
+    font-size:22px;
+}
+
+.timebox small{color:#dfbde9}
+
+.gameArea{
+    position:relative;
+    height:280px;
+    overflow:hidden;
+    background:radial-gradient(circle,#52235f,#1d0d29);
+    border:1px solid #a54ba0;
+    border-radius:20px;
+}
+
+.gameHeart{
+    position:absolute;
+    padding:0;
+    border:none;
+    background:none;
+    box-shadow:none;
+    font-size:32px;
+    animation:float 2s infinite alternate;
+}
+
+@keyframes float{
+    from{transform:translateY(5px)}
+    to{transform:translateY(-8px)}
+}
+
+.score{
+    text-align:center;
+    color:#ffc9e9;
+    font-size:19px;
+    margin:15px;
+}
+
+.surprise{text-align:center}
+
+.surpriseText{
+    font-family:'Amiri',serif;
+    font-size:22px;
+    line-height:2;
+    color:#ffe3f5;
+    margin-top:20px;
+    white-space:pre-line;
+}
+
+.floatHeart{
+    position:fixed;
+    pointer-events:none;
+    z-index:100;
+    font-size:25px;
+    animation:rise 1.5s forwards;
+}
+
+@keyframes rise{
+    to{
+        transform:translateY(-150px);
+        opacity:0;
+    }
+}
+
+footer{
+    text-align:center;
+    padding:35px 10px;
+    color:#e8b5ed;
+    font-family:'Amiri',serif;
+}
+
+@media(max-width:650px){
+    .cards{grid-template-columns:1fr}
+    .section{padding:20px 14px}
+    .letter{font-size:19px}
+    .hero p{font-size:19px}
+}
 </style>
 </head>
 
 <body>
-<div class="app">
 
-<header>
- <div class="logo">N</div>
- <div>
-  <h2>NEXORA MINER</h2>
-  <p>MINING NETWORK</p>
- </div>
+<!-- شاشة البداية -->
+
+<header class="hero" id="welcome">
+
+    <div class="moon">🌙</div>
+
+    <p>♡ عالم صغير صنعته لكِ ♡</p>
+
+    <h1>إلى منورتيييي</h1>
+
+    <p>
+        هناك شيء صغير صنعته لكِ...<br>
+        لكنه يحمل مشاعر أكبر من أن أستطيع وصفها.
+    </p>
+
+    <button onclick="openSite()">افتحي قلبي ❤️</button>
+
 </header>
 
-<!-- MINING -->
-<section id="mine" class="page active">
- <div class="balance-card">
-  <div class="label">YOUR TOTAL BALANCE</div>
-  <div class="balance"><span id="balance">0</span> NXR</div>
-  <div class="small">Your Nexora mining balance</div>
- </div>
+<main id="content" class="hidden">
 
- <div class="card" style="text-align:center">
-  <h3>Daily Mining</h3>
-  <div class="small">Earn 10 NXR every 24 hours</div>
-  <button class="btn" id="mineBtn" onclick="mine()">START MINING +10</button>
-  <div class="label" style="margin-top:20px">NEXT MINING</div>
-  <div class="timer" id="timer">READY</div>
-  <div class="small" id="mineStatus">Claim your daily reward</div>
- </div>
+<!-- رسالة الحب -->
 
- <div class="card">
-  <div class="row">
-   <div>
-    <div class="label">TOTAL MINING CLAIMS</div>
-    <h3 id="claims">0</h3>
-   </div>
-   <div>
-    <div class="label">TASK REWARDS</div>
-    <h3 id="taskRewards">0 NXR</h3>
-   </div>
-  </div>
- </div>
+<section class="section">
+
+    <h2>إلى منورتي، أجمل صدفة في حياتي 💌</h2>
+
+    <div class="letter">
+منذ 3 نوفمبر 2022، صار في حياتي شيء مختلف...
+شيء يجعل الأيام العادية أجمل، ويجعلني أبتسم أحيانًا دون أن أنتبه، فقط لأنني تذكرتك.
+
+لا أريد أن أقول لكِ كلامًا مثاليًا، أريد فقط أن تعرفي أنكِ تعنين لي الكثير. أحب تفاصيلك، وأحب وجودك، وحتى اللحظات التي لا نعرف فيها ماذا نقول، يكفيني أنكِ أنتِ.
+
+أتمنى أن أكون لكِ مكانًا آمنًا، وشخصًا تستطيعين أن تكوني معه على طبيعتك تمامًا؛ تضحكين، تتعبين، تحكين، أو تصمتين دون أن تحتاجي إلى أن تتظاهري بأنك بخير.
+
+لو استطعت أن أترك لكِ شيئًا واحدًا في قلبك، فسيكون هذا:
+
+أنتِ محبوبة، وغالية، ولا تحتاجين إلى أن تكوني مثالية كي تستحقي كل هذا الحب.
+
+أنا أحبك لأنك أنتِ، يا منورتي. ❤️
+    </div>
+
+    <p class="signature">
+        — من شخص قلبه يبتسم كلما تذكركِ
+    </p>
+
 </section>
 
-<!-- TASKS -->
-<section id="tasks" class="page">
- <div class="card">
-  <h3>Daily Tasks</h3>
-  <div class="small">Complete tasks to earn additional NXR.</div>
+<!-- الرسائل الثلاث -->
 
-  <div class="task">
-   <div class="row">
-    <strong>🎁 Welcome Bonus</strong>
-    <strong>+25 NXR</strong>
-   </div>
-   <button class="btn" id="welcomeBtn" onclick="claimTask('welcome',25)">CLAIM</button>
-  </div>
+<section class="section">
 
-  <div class="task">
-   <div class="row">
-    <strong>🚀 Join NEXORA</strong>
-    <strong>+50 NXR</strong>
-   </div>
-   <button class="btn secondary" onclick="openTelegram()">OPEN TELEGRAM</button>
-   <button class="btn" id="telegramBtn" onclick="claimTask('telegram',50)">CLAIM REWARD</button>
-  </div>
+    <h2>ثلاث رسائل صغيرة من قلبي 💗</h2>
 
-  <div class="task">
-   <div class="row">
-    <strong>👥 Invite a Friend</strong>
-    <strong>+100 NXR</strong>
-   </div>
-   <button class="btn secondary" onclick="go('referral')">INVITE NOW</button>
-  </div>
- </div>
+    <p style="text-align:center">
+        رسالة الآن، ورسالة بعد 6 ساعات، ورسالة أخرى بعد 12 ساعة.
+    </p>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>🌷 عندما تشتاقين إليّ</h3>
+            <p>رسالة صغيرة تذكركِ كم أنتِ قريبة من قلبي.</p>
+            <button id="btn0" onclick="showLetter(0)">
+                افتحي الرسالة
+            </button>
+            <div class="lockInfo" id="info0"></div>
+        </div>
+
+        <div class="card">
+            <h3>🌙 عندما يتعب قلبك</h3>
+            <p>تذكير بأنكِ لستِ وحدك.</p>
+            <button id="btn1" onclick="showLetter(1)" disabled>
+                🔒 مغلقة
+            </button>
+            <div class="lockInfo" id="info1"></div>
+        </div>
+
+        <div class="card">
+            <h3>💞 شيء لم أخبركِ به</h3>
+            <p>كلمات خبأتها لكِ لتصل في وقتها.</p>
+            <button id="btn2" onclick="showLetter(2)" disabled>
+                🔒 مغلقة
+            </button>
+            <div class="lockInfo" id="info2"></div>
+        </div>
+
+    </div>
+
+    <div id="letterDisplay" class="hidden">
+
+        <h2 id="letterTitle"></h2>
+
+        <div class="letter" id="letterBody"></div>
+
+    </div>
+
 </section>
 
-<!-- REFERRAL -->
-<section id="referral" class="page">
- <div class="card" style="text-align:center">
-  <h3>Invite Friends</h3>
-  <div style="font-size:45px;margin:15px">👥</div>
-  <p class="small">Invite your friends to NEXORA and grow your network.</p>
-  <h2 style="color:#42e78a">100 NXR / Referral</h2>
- </div>
+<!-- لعبة القلوب -->
 
- <div class="card">
-  <h3>Your Referral Link</h3>
-  <input id="refLink" readonly value="Loading referral link...">
-  <button class="btn" onclick="copyReferral()">COPY INVITE LINK</button>
-  <button class="btn secondary" onclick="shareReferral()">SHARE WITH FRIENDS</button>
- </div>
+<section class="section">
 
- <div class="card">
-  <div class="row">
-   <span>👥 Total Invited</span>
-   <strong id="refCount">0</strong>
-  </div>
-  <div class="row" style="margin-top:15px">
-   <span>💰 Referral Earnings</span>
-   <strong id="refEarn">0 NXR</strong>
-  </div>
- </div>
+    <h2>Catch My Heart ❤️</h2>
+
+    <p style="text-align:center">
+        التقطي 10 قلوب لتكتشفي رسالة صغيرة منّي.
+    </p>
+
+    <div class="score" id="score">
+        القلوب: 0 / 10
+    </div>
+
+    <div class="gameArea" id="gameArea"></div>
+
+    <div style="text-align:center;margin-top:15px">
+        <button onclick="startGame()" id="startGame">
+            ابدئي اللعبة 🎮
+        </button>
+    </div>
+
+    <div id="gameWin" class="hidden letter">
+        🎉 أحسنتِ يا منورتي!
+
+        لو كان بإمكاني، لجمعت كل الأشياء الجميلة في العالم ووضعتها بين يديكِ.
+
+        لكن بما أنني لا أملك ذلك، سأعطيكِ قلبي... وهو لكِ أصلًا. ❤️
+    </div>
+
 </section>
 
-<!-- LEADERBOARD -->
-<section id="leaderboard" class="page">
- <div class="card">
-  <h3>🏆 Leaderboard</h3>
-  <div class="small">Top NEXORA miners</div>
- </div>
+<!-- عداد العلاقة بدون صور -->
 
- <div id="ranking"></div>
+<section class="section">
+
+    <h2>منذ أن بدأت حكايتنا ❤️</h2>
+
+    <p style="text-align:center">
+        3 نوفمبر 2022
+    </p>
+
+    <div class="timer" id="timer"></div>
+
+    <p class="signature">
+        وكل يوم يضيف ذكرى أجمل إلى حكايتنا ❤️
+    </p>
+
 </section>
 
-<!-- WALLET -->
-<section id="wallet" class="page">
- <div class="balance-card">
-  <div class="label">YOUR WALLET BALANCE</div>
-  <div class="balance"><span id="walletBalance">0</span> NXR</div>
-  <div class="small">NEXORA Rewards</div>
- </div>
- <div class="card">
-  <h3>Reward History</h3>
-  <div id="history" class="small">No rewards yet.</div>
- </div>
+<!-- المفاجأة -->
+
+<section class="section surprise">
+
+    <h2>مفاجأة أخيرة لكِ 🎁</h2>
+
+    <p>هناك شيء صغير ينتظر منكِ الضغط...</p>
+
+    <button onclick="showSurprise()">
+        افتحي مفاجأتك ✨
+    </button>
+
+    <div id="surpriseText" class="hidden surpriseText">
+يا منورتي،
+
+لو سألتني ماذا أتمنى، فلن أطلب أيامًا مثالية ولا حياة بلا تعب.
+
+أتمنى فقط أن نمنح بعضنا الحب حين تكون الأيام سهلة، والحنان حين تكون صعبة، والصدق في كل وقت.
+
+أتمنى أن تظل ضحكتك حاضرة، وأن لا تنسي أبدًا كم أنتِ جميلة في عيني، وكم يسعدني أنكِ موجودة في هذا العالم... وفي حياتي.
+
+أحبك، بكل هدوء، وبكل ما في قلبي. ❤️
+    </div>
+
 </section>
 
-</div>
+</main>
 
-<!-- BOTTOM NAVIGATION -->
-<div class="nav">
- <div class="nav-inner">
-  <button class="active" onclick="go('mine',this)"><span>⛏️</span>Mine</button>
-  <button onclick="go('tasks',this)"><span>📋</span>Tasks</button>
-  <button onclick="go('referral',this)"><span>👥</span>Invite</button>
-  <button onclick="go('leaderboard',this)"><span>🏆</span>Ranks</button>
-  <button onclick="go('wallet',this)"><span>💰</span>Wallet</button>
- </div>
-</div>
+<footer>
+    صُنِع بكل الحب... من أجلكِ يا منورتي ♡
+</footer>
 
 <script>
-const tg=window.Telegram?.WebApp;
-if(tg){tg.ready();tg.expand();}
 
-const get=(k,d)=>JSON.parse(localStorage.getItem(k)??JSON.stringify(d));
-const set=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+/* شاشة الدخول */
 
-let balance=get("nx_balance",0);
-let lastMine=get("nx_lastmine",0);
-let claims=get("nx_claims",0);
-let taskRewards=get("nx_taskrewards",0);
-let tasks=get("nx_tasks",{});
-let history=get("nx_history",[]);
-const cooldown=86400000;
-const reward=10;
+function openSite(){
 
-function save(){
- set("nx_balance",balance);
- set("nx_lastmine",lastMine);
- set("nx_claims",claims);
- set("nx_taskrewards",taskRewards);
- set("nx_tasks",tasks);
- set("nx_history",history);
+    document.getElementById("welcome").style.display="none";
+
+    document.getElementById("content").classList.remove("hidden");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+    for(let i=0;i<12;i++){
+        setTimeout(()=>{
+            createHeart(
+                window.innerWidth/2,
+                window.innerHeight/2
+            );
+        },i*100);
+    }
 }
 
-function addReward(amount,label){
- balance+=amount;
- taskRewards+=amount;
- history.unshift(label+" +"+amount+" NXR");
- save();
- render();
+/* نظام الرسائل */
+
+const STORAGE_KEY="monwarty_love_v2";
+
+let data;
+
+try{
+    data=JSON.parse(localStorage.getItem(STORAGE_KEY));
+}catch(e){
+    data=null;
 }
 
-function mine(){
- if(Date.now()<lastMine+cooldown)return;
- balance+=reward;
- lastMine=Date.now();
- claims++;
- history.unshift("Daily mining +10 NXR");
- save();
- if(tg?.HapticFeedback)tg.HapticFeedback.notificationOccurred("success");
- render();
+if(!data || !Number.isFinite(data.start) || !Array.isArray(data.opened)){
+    data={
+        start:Date.now(),
+        opened:[false,false,false]
+    };
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
 }
 
-function claimTask(id,amount){
- if(tasks[id])return;
- tasks[id]=true;
- addReward(amount,"Task reward");
- render();
+data.opened=[
+    !!data.opened[0],
+    !!data.opened[1],
+    !!data.opened[2]
+];
+
+const letters=[
+
+{
+title:"عندما تشتاقين إليّ ❤️",
+text:`إذا اشتقتِ إليّ في لحظة، تخيّلي أنني أبتسم الآن وأنا أفكر بكِ.
+
+قد لا أكون بجانبك في كل ثانية، لكن هناك جزءًا من يومي يحمل اسمك دائمًا.
+
+أتمنى لو أستطيع أن أختصر المسافة، وأجلس قربك، وأطمئن عليكِ بنفسي.
+
+إلى أن يحدث ذلك، تذكّري أن لكِ قلبًا يحبك، وأنكِ لستِ بعيدة عني كما قد يبدو.`
+},
+
+{
+title:"عندما يتعب قلبك 🌙",
+text:`يا منورتي، لا بأس إن لم يكن يومك جميلًا، ولا بأس إن لم تستطيعي أن تكوني قوية طوال الوقت.
+
+لا تضغطي على نفسك كي ترضي العالم. خذي وقتك، ارتاحي، وابكي إن احتجتِ، ثم عودي عندما تشعرين أنك مستعدة.
+
+لا أريد منكِ أن تكوني بخير دائمًا؛ أريد فقط أن تعرفي أنكِ تستحقين اللطف حتى في أصعب لحظاتك.
+
+لو استطعت، لخففت عنك كل ما يثقل قلبك.`
+},
+
+{
+title:"شيء لم أخبركِ به 💞",
+text:`ربما لا أقول ذلك كل مرة بالطريقة التي تستحقينها، لكن وجودك غيّر معنى أشياء كثيرة بالنسبة لي.
+
+صرت أجد السعادة في تفاصيل بسيطة، في رسالة منكِ، في صوتكِ، في معرفة أنكِ بخير.
+
+لا أعرف كيف سيكون شكل الأيام القادمة، لكنني أعرف أنني ممتن جدًا لأن طريقنا تقاطع في 3 نوفمبر 2022.
+
+أنتِ لستِ مجرد ذكرى جميلة؛ أنتِ شخص أتمنى أن أصنع معه ذكريات أجمل، وأن أختار حبه كل يوم، لا بالكلام فقط، بل بالاهتمام والصدق والأفعال.`
 }
 
-function go(id,btn){
- document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
- document.getElementById(id).classList.add("active");
- document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
- if(btn)btn.classList.add("active");
- else{
-  const idx={mine:0,tasks:1,referral:2,leaderboard:3,wallet:4}[id];
-  document.querySelectorAll(".nav button")[idx]?.classList.add("active");
- }
- render();
+];
+
+const unlockAfter=[
+    0,
+    6*60*60*1000,
+    12*60*60*1000
+];
+
+function elapsed(){
+    return Math.max(0,Date.now()-data.start);
 }
 
-function openTelegram(){
- if(tg)tg.openTelegramLink("https://t.me/NXR_Mining_bot");
- else window.open("https://t.me/NXR_Mining_bot","_blank");
+function canOpen(i){
+    return elapsed()>=unlockAfter[i];
 }
 
-function getUserId(){
- return tg?.initDataUnsafe?.user?.id || "demo";
+function formatTime(ms){
+
+    ms=Math.max(0,ms);
+
+    let h=Math.floor(ms/3600000);
+    let m=Math.floor(ms%3600000/60000);
+    let s=Math.floor(ms%60000/1000);
+
+    return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
 }
 
-function referralUrl(){
- return "https://t.me/NXR_Mining_bot?start=ref_"+getUserId();
+/* تحديث أزرار الرسائل */
+
+function updateLetters(){
+
+    for(let i=0;i<3;i++){
+
+        const btn=document.getElementById("btn"+i);
+        const info=document.getElementById("info"+i);
+
+        if(data.opened[i]){
+
+            btn.disabled=false;
+            btn.textContent="إعادة قراءة الرسالة ❤️";
+            info.textContent="هذه الرسالة أصبحت لكِ دائمًا.";
+
+        }
+
+        else if(canOpen(i)){
+
+            btn.disabled=false;
+            btn.textContent="افتحي الرسالة 💌";
+            info.textContent="وصل وقت رسالتك.";
+
+        }
+
+        else{
+
+            btn.disabled=true;
+            btn.textContent="🔒 مغلقة";
+
+            info.textContent=
+            "تفتح بعد: "+
+            formatTime(unlockAfter[i]-elapsed());
+
+        }
+
+    }
+
 }
 
-function copyReferral(){
- const link=referralUrl();
- if(tg?.showPopup){
-  navigator.clipboard?.writeText(link);
- }else{
-  navigator.clipboard?.writeText(link);
- }
- alert("Referral link copied!");
+/* عرض رسالة */
+
+function showLetter(i){
+
+    if(!canOpen(i)&&!data.opened[i]){
+        return;
+    }
+
+    data.opened[i]=true;
+
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+
+    document.getElementById("letterTitle").textContent=letters[i].title;
+
+    document.getElementById("letterBody").textContent=letters[i].text;
+
+    document.getElementById("letterDisplay").classList.remove("hidden");
+
+    document.getElementById("letterDisplay").scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+
+    updateLetters();
+
 }
 
-function shareReferral(){
- const link=referralUrl();
- const text="Join NEXORA Miner and earn NXR rewards!";
- if(tg?.openTelegramLink){
-  tg.openTelegramLink("https://t.me/share/url?url="+encodeURIComponent(link)+"&text="+encodeURIComponent(text));
- }else{
-  window.open("https://t.me/share/url?url="+encodeURIComponent(link)+"&text="+encodeURIComponent(text));
- }
-}
-
-function render(){
- document.getElementById("balance").textContent=balance.toLocaleString("en-US");
- document.getElementById("walletBalance").textContent=balance.toLocaleString("en-US");
- document.getElementById("claims").textContent=claims;
- document.getElementById("taskRewards").textContent=taskRewards+" NXR";
- document.getElementById("refLink").value=referralUrl();
- document.getElementById("refCount").textContent=get("nx_refcount",0);
- document.getElementById("refEarn").textContent=get("nx_refearn",0)+" NXR";
-
- document.getElementById("welcomeBtn").disabled=!!tasks.welcome;
- document.getElementById("welcomeBtn").textContent=tasks.welcome?"COMPLETED":"CLAIM";
-
- document.getElementById("telegramBtn").disabled=!!tasks.telegram;
- document.getElementById("telegramBtn").textContent=tasks.telegram?"COMPLETED":"CLAIM REWARD";
-
- document.getElementById("history").innerHTML=history.length
- ?history.slice(0,10).map(x=>"<div style='margin:12px 0'>🟢 "+x+"</div>").join("")
- :"No rewards yet.";
-
- const demo=[
-  {name:"CryptoMaster",amount:24500},
-  {name:"NexoraKing",amount:18900},
-  {name:"MinerX",amount:15300},
-  {name:"BlockHunter",amount:12100},
-  {name:"NovaUser",amount:9800}
- ];
- document.getElementById("ranking").innerHTML=demo.map((u,i)=>
- `<div class="rank"><div class="rank-left"><div class="rank-num">#${i+1}</div><div class="avatar">👤</div><strong>${u.name}</strong></div><strong>${u.amount.toLocaleString()} NXR</strong></div>`
- ).join("");
- updateTimer();
-}
+/* عداد العلاقة */
 
 function updateTimer(){
- const remaining=lastMine+cooldown-Date.now();
- const btn=document.getElementById("mineBtn");
- const timer=document.getElementById("timer");
- const status=document.getElementById("mineStatus");
- if(lastMine===0||remaining<=0){
-  btn.disabled=false;
-  btn.textContent="START MINING +10";
-  timer.textContent="READY";
-  status.textContent="Claim your daily reward";
- }else{
-  btn.disabled=true;
-  btn.textContent="MINING ACTIVE";
-  let s=Math.floor(remaining/1000);
-  let h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=s%60;
-  timer.textContent=[h,m,sec].map(x=>String(x).padStart(2,"0")).join(":");
-  status.textContent="Come back when the timer ends";
- }
+
+    const start=new Date(2022,10,3,0,0,0);
+
+    let diff=Math.max(0,Date.now()-start.getTime());
+
+    let days=Math.floor(diff/86400000);
+
+    diff%=86400000;
+
+    let hours=Math.floor(diff/3600000);
+
+    diff%=3600000;
+
+    let minutes=Math.floor(diff/60000);
+
+    diff%=60000;
+
+    let seconds=Math.floor(diff/1000);
+
+    document.getElementById("timer").innerHTML=`
+
+        <div class="timebox">
+            <strong>${days}</strong>
+            <small>يوم</small>
+        </div>
+
+        <div class="timebox">
+            <strong>${hours}</strong>
+            <small>ساعة</small>
+        </div>
+
+        <div class="timebox">
+            <strong>${minutes}</strong>
+            <small>دقيقة</small>
+        </div>
+
+        <div class="timebox">
+            <strong>${seconds}</strong>
+            <small>ثانية</small>
+        </div>
+    `;
+
+    updateLetters();
+
 }
 
-render();
 setInterval(updateTimer,1000);
+updateTimer();
+
+/* القلوب المتحركة */
+
+function createHeart(x,y){
+
+    const heart=document.createElement("div");
+
+    heart.className="floatHeart";
+
+    heart.textContent=["💗","❤️","💕","💘","💖"][
+        Math.floor(Math.random()*5)
+    ];
+
+    heart.style.left=x+"px";
+    heart.style.top=y+"px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },1500);
+
+}
+
+document.addEventListener("click",function(e){
+
+    if(e.target.closest("button")){
+        createHeart(e.clientX,e.clientY);
+    }
+
+});
+
+/* لعبة جمع 10 قلوب */
+
+let score=0;
+let gameRunning=false;
+let gameTimers=[];
+
+function spawnHeart(){
+
+    if(!gameRunning)return;
+
+    const area=document.getElementById("gameArea");
+
+    const heart=document.createElement("button");
+
+    heart.className="gameHeart";
+    heart.textContent="💗";
+
+    heart.style.left=Math.random()*85+"%";
+    heart.style.top=Math.random()*75+"%";
+
+    area.appendChild(heart);
+
+    heart.onclick=function(){
+
+        if(!gameRunning)return;
+
+        score++;
+
+        document.getElementById("score").textContent=
+        "القلوب: "+score+" / 10";
+
+        const rect=heart.getBoundingClientRect();
+
+        createHeart(rect.left,rect.top);
+
+        heart.remove();
+
+        if(score>=10){
+
+            gameRunning=false;
+
+            area.innerHTML="✨ لقد جمعتِ كل القلوب ✨";
+
+            document.getElementById("gameWin").classList.remove("hidden");
+
+            document.getElementById("startGame").textContent="إعادة اللعب";
+
+        }else{
+            spawnHeart();
+        }
+
+    };
+
+    const timer=setTimeout(()=>{
+
+        if(heart.isConnected&&gameRunning){
+            heart.remove();
+        }
+
+    },4000);
+
+    gameTimers.push(timer);
+
+}
+
+function startGame(){
+
+    gameTimers.forEach(clearTimeout);
+    gameTimers=[];
+
+    score=0;
+    gameRunning=true;
+
+    document.getElementById("score").textContent="القلوب: 0 / 10";
+
+    document.getElementById("gameWin").classList.add("hidden");
+
+    document.getElementById("gameArea").innerHTML="";
+
+    document.getElementById("startGame").textContent="اللعبة بدأت...";
+
+    for(let i=0;i<4;i++){
+        spawnHeart();
+    }
+
+}
+
+/* المفاجأة */
+
+function showSurprise(){
+
+    document.getElementById("surpriseText").classList.remove("hidden");
+
+    document.getElementById("surpriseText").scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+
+    for(let i=0;i<20;i++){
+
+        setTimeout(()=>{
+
+            createHeart(
+                Math.random()*window.innerWidth,
+                window.innerHeight*.7
+            );
+
+        },i*100);
+
+    }
+
+}
+
 </script>
+
 </body>
-  </html>
-  
+</html>
