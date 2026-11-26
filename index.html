@@ -51,8 +51,6 @@ button{
 button:hover{transform:scale(1.04);box-shadow:0 0 30px #ff69c788;}
 button:disabled{opacity:.45;cursor:not-allowed;}
 
-/* ===================== الصفحة الرئيسية ===================== */
-
 .hero{
     min-height:100vh;
     display:flex;
@@ -87,8 +85,6 @@ button:disabled{opacity:.45;cursor:not-allowed;}
     color:#f4d5fa;
     line-height:1.9;
 }
-
-/* ===================== إدارة الصفحات (SPA) ===================== */
 
 #content{
     min-height:100vh;
@@ -135,8 +131,6 @@ button:disabled{opacity:.45;cursor:not-allowed;}
     font-size:17px;
     margin:0 0 6px;
 }
-
-/* ===================== الأقسام ===================== */
 
 .section{
     width:min(94%,900px);
@@ -227,7 +221,6 @@ h3{color:#ffd0ef}
     gap:12px;
 }
 
-/* ترتيب خاص لقسم الرسائل الخمس: 3 في الأعلى + 2 في الوسط */
 #lettersSection .cards{
     grid-template-columns:repeat(6,1fr);
 }
@@ -467,8 +460,6 @@ footer{
     z-index:1;
 }
 
-/* ===================== القائمة السفلية الثابتة ===================== */
-
 .bottomNav{
     position:fixed;
     z-index:999;
@@ -705,7 +696,7 @@ footer{
         <section class="section" id="lettersSection">
             <h2>خمس رسائل صغيرة من قلبي 💗</h2>
             <p style="text-align:center">
-                رسالة الآن، ثم بعد 6 ساعات، ثم 12، ثم 18، ثم 24 ساعة.<br>
+                ثلاث رسائل مفتوحة الآن، ثم رسالة بعد 3 ساعات، وأخرى بعد 6 ساعات.<br>
                 كل رسالة تصل في وقتها لتكون معكِ حين تحتاجينها.
             </p>
 
@@ -721,14 +712,14 @@ footer{
                 <div class="card">
                     <h3>🌙 عندما يتعب قلبك</h3>
                     <p>تذكير بأنكِ لستِ وحدك.</p>
-                    <button id="btn1" onclick="showLetter(1)" disabled>🔒 مغلقة</button>
+                    <button id="btn1" onclick="showLetter(1)">افتحي الرسالة</button>
                     <div class="lockInfo" id="info1"></div>
                 </div>
 
                 <div class="card">
                     <h3>💞 شيء لم أخبركِ به</h3>
                     <p>كلمات خبأتها لكِ لتصل في وقتها.</p>
-                    <button id="btn2" onclick="showLetter(2)" disabled>🔒 مغلقة</button>
+                    <button id="btn2" onclick="showLetter(2)">افتحي الرسالة</button>
                     <div class="lockInfo" id="info2"></div>
                 </div>
 
@@ -897,8 +888,6 @@ footer{
 
 <script>
 
-/* ===================== فتح الموقع ===================== */
-
 function openSite(){
     document.getElementById("welcome").style.display="none";
     document.getElementById("content").classList.remove("hidden");
@@ -910,8 +899,6 @@ function openSite(){
         },i*100);
     }
 }
-
-/* ===================== التنقل بين الصفحات ===================== */
 
 function showPage(id){
 
@@ -967,7 +954,8 @@ function revealReason(index){
 
 /* ===================== الرسائل المحفوظة ===================== */
 
-const STORAGE_KEY = "monwarty_love_v4";  // تم رفع الإصدار لأن البيانات تغيّرت من 3 إلى 5
+/* رفعنا الإصدار إلى v5 لأن أوقات الفتح تغيّرت جذريًا */
+const STORAGE_KEY = "monwarty_love_v5";
 
 let data;
 
@@ -1064,13 +1052,17 @@ text:`لو عاد بي الزمن إلى اللحظة التي لم أكن أع�
 
 ];
 
-/* فترات الفتح: فوري، 6 ساعات، 12 ساعة، 18 ساعة، 24 ساعة */
+/* ✅ أوقات الفتح الجديدة:
+   - الرسائل 1 و 2 و 3: مفتوحة فورًا
+   - الرسالة 4: بعد 3 ساعات
+   - الرسالة 5: بعد 6 ساعات
+*/
 const unlockAfter = [
     0,
-    6*60*60*1000,
-    12*60*60*1000,
-    18*60*60*1000,
-    24*60*60*1000
+    0,
+    0,
+    3*60*60*1000,
+    6*60*60*1000
 ];
 
 function elapsed(){
