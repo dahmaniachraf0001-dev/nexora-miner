@@ -12,6 +12,10 @@
 
 *{box-sizing:border-box}
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     margin:0;
     color:#fff0fa;
@@ -19,6 +23,7 @@ body{
     background:radial-gradient(circle at top,#54205e,#210d30 45%,#100717 100%);
     min-height:100vh;
     overflow-x:hidden;
+    padding-bottom:100px;
 }
 
 body::before{
@@ -112,6 +117,10 @@ h2{
     font-family:'Amiri',serif;
     font-size:29px;
     margin-top:0;
+}
+
+h3{
+    color:#ffd0ef;
 }
 
 .letter{
@@ -276,6 +285,108 @@ h2{
     animation:fadeIn 1s ease;
 }
 
+/* إضافات الدفء */
+
+.warmBox{
+    background:linear-gradient(145deg,#351640,#1e102a);
+    border:1px solid #a954a0;
+    border-radius:20px;
+    padding:20px;
+    text-align:center;
+    margin:15px 0;
+    line-height:2;
+}
+
+.memoryLine{
+    position:relative;
+    padding:10px 20px 10px 10px;
+    margin:15px 0;
+    border-right:2px solid #ec8bce;
+}
+
+.memoryLine::before{
+    content:"💗";
+    position:absolute;
+    right:-12px;
+    top:12px;
+}
+
+.memoryLine h3{
+    margin:0 0 8px;
+}
+
+.memoryLine p{
+    color:#e8c6ef;
+    line-height:1.9;
+}
+
+.moodButtons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+    margin:20px 0;
+}
+
+.moodButtons button{
+    background:linear-gradient(145deg,#492254,#762d7d);
+}
+
+#comfortMessage{
+    font-family:'Amiri',serif;
+    font-size:23px;
+    line-height:2;
+    color:#ffe3f5;
+    text-align:center;
+    padding:20px;
+    animation:fadeIn .5s;
+}
+
+.starArea{
+    text-align:center;
+    padding:20px;
+    line-height:2.2;
+}
+
+.starButton{
+    background:none;
+    border:none;
+    box-shadow:none;
+    padding:8px;
+    font-size:42px;
+    color:#fff5c9;
+    text-shadow:0 0 20px #ffe38a;
+    animation:starPulse 2s infinite alternate;
+}
+
+@keyframes starPulse{
+    from{filter:brightness(.8)}
+    to{filter:brightness(1.5)}
+}
+
+#starWish{
+    font-family:'Amiri',serif;
+    color:#ffe3f5;
+    font-size:23px;
+    line-height:2;
+    margin-top:20px;
+}
+
+.secretBox{
+    padding:20px;
+    text-align:center;
+    background:rgba(255,255,255,.04);
+    border-radius:18px;
+    border:1px dashed #cf77c0;
+    margin-top:15px;
+}
+
+.secretBox p{
+    font-family:'Amiri',serif;
+    font-size:21px;
+    line-height:2;
+}
+
 footer{
     text-align:center;
     padding:35px 10px;
@@ -285,16 +396,52 @@ footer{
     z-index:1;
 }
 
+/* القائمة السفلية ذات 3 خانات */
+
+.bottomNav{
+    position:fixed;
+    z-index:999;
+    bottom:12px;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(94%,480px);
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    padding:10px;
+    background:rgba(27,9,37,.94);
+    border:1px solid #ba63a9;
+    border-radius:25px;
+    backdrop-filter:blur(15px);
+    box-shadow:0 0 25px #e64ab533;
+}
+
+.bottomNav button{
+    padding:10px 5px;
+    border-radius:17px;
+    background:linear-gradient(145deg,#54265f,#30143f);
+    border:1px solid #92508e;
+    box-shadow:none;
+    font-size:13px;
+}
+
+.bottomNav button:active{
+    background:linear-gradient(145deg,#a53c8e,#652e82);
+}
+
 @media(max-width:650px){
     .cards{grid-template-columns:1fr}
     .section{padding:20px 14px}
     .letter{font-size:19px}
     .hero p{font-size:19px}
+    .bottomNav button{font-size:12px;padding:9px 3px}
 }
 </style>
 </head>
 
 <body>
+
+<!-- الصفحة الرئيسية -->
 
 <header class="hero" id="welcome">
 
@@ -315,7 +462,7 @@ footer{
 
 <main id="content" class="hidden">
 
-<!-- رسالة الحب -->
+<!-- رسالة الحب الرئيسية -->
 
 <section class="section">
 
@@ -342,7 +489,7 @@ footer{
 
 </section>
 
-<!-- أسباب الحب التفاعلية -->
+<!-- أسباب الحب -->
 
 <section class="section" id="reasons">
 
@@ -411,7 +558,7 @@ footer{
 
 <!-- الرسائل الثلاث -->
 
-<section class="section">
+<section class="section" id="lettersSection">
 
     <h2>ثلاث رسائل صغيرة من قلبي 💗</h2>
 
@@ -451,9 +598,139 @@ footer{
 
 </section>
 
-<!-- لعبة القلوب -->
+<!-- ركن ذكرياتنا -->
 
-<section class="section">
+<section class="section" id="memories">
+
+    <h2>🌷 ركن ذكرياتنا</h2>
+
+    <p class="signature">
+        بعض الأيام تمر... وبعض الأيام تبقى في القلب إلى الأبد.
+    </p>
+
+    <div class="warmBox">
+
+        <div class="memoryLine">
+            <h3>3 نوفمبر 2022 ❤️</h3>
+            <p>
+                اليوم الذي بدأت فيه حكاية أصبحت جزءًا من قلبي.
+                لم أكن أعلم أن هذا التاريخ سيصبح يومًا يحمل كل هذا المعنى.
+            </p>
+        </div>
+
+        <div class="memoryLine">
+            <h3>أيامنا الصغيرة 🌸</h3>
+            <p>
+                الرسائل، الضحكات، الحديث الطويل، وحتى التفاصيل التي قد تبدو عادية...
+                أصبحت أشياء أحب أن أتذكرها.
+            </p>
+        </div>
+
+        <div class="memoryLine">
+            <h3>وما زالت الحكاية مستمرة ✨</h3>
+            <p>
+                أجمل ذكرى بالنسبة لي ليست فقط ما حدث،
+                بل ما أتمنى أن نعيشه معًا في الأيام القادمة.
+            </p>
+        </div>
+
+    </div>
+
+    <p class="letter">
+        أتمنى أن نضيف إلى هذا الركن ذكريات كثيرة،
+        حتى يصبح مليئًا بالأيام التي تجعلنا نبتسم كلما عدنا إليها. ❤️
+    </p>
+
+</section>
+
+<!-- عندما يكون يومها صعبا -->
+
+<section class="section" id="comfort">
+
+    <h2>🫂 عندما يكون يومك صعبًا</h2>
+
+    <p style="text-align:center">
+        اختاري ما يشبه شعورك الآن...
+        وهناك كلمات صغيرة تنتظرك.
+    </p>
+
+    <div class="moodButtons">
+
+        <button onclick="comfort(0)">😔 أنا حزينة</button>
+        <button onclick="comfort(1)">😣 أنا متعبة</button>
+        <button onclick="comfort(2)">🥺 أشتاق إليك</button>
+        <button onclick="comfort(3)">🤍 أحتاج إلى كلام لطيف</button>
+        <button onclick="comfort(4)">🌸 أريد أن أبتسم</button>
+
+    </div>
+
+    <div class="warmBox">
+
+        <div id="comfortMessage">
+            يا منورتي، مهما كان شعورك الآن،
+            أتمنى أن تجدي هنا شيئًا يخفف عن قلبك قليلًا. ❤️
+        </div>
+
+    </div>
+
+</section>
+
+<!-- أمنية تحت النجوم -->
+
+<section class="section" id="stars">
+
+    <h2>🌙 أمنية تحت النجوم</h2>
+
+    <p style="text-align:center">
+        اضغطي على نجمة... ربما تحمل لكِ أمنية صغيرة.
+    </p>
+
+    <div class="starArea">
+
+        <button class="starButton" onclick="starWish(0)">⭐</button>
+        <button class="starButton" onclick="starWish(1)">✨</button>
+        <button class="starButton" onclick="starWish(2)">🌟</button>
+        <button class="starButton" onclick="starWish(3)">⭐</button>
+        <button class="starButton" onclick="starWish(4)">✨</button>
+
+        <div id="starWish">
+            اختاري نجمتك يا منورتي 💫
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ركن الأمان -->
+
+<section class="section" id="safePlace">
+
+    <h2>🕯️ هنا يمكنكِ أن ترتاحي</h2>
+
+    <div class="warmBox">
+
+        <div class="letter">
+هذا المكان لكِ...
+
+لا تحتاجين هنا إلى أن تكوني قوية.
+لا تحتاجين إلى أن تبتسمي إن لم يكن قلبك يريد ذلك.
+ولا تحتاجين إلى إخفاء أي شعور.
+
+إن كنتِ سعيدة، سأفرح معكِ.
+وإن كنتِ متعبة، أتمنى أن أكون سببًا في راحتك.
+وإن أردتِ الصمت، فحتى صمتكِ له مكان.
+
+أحبكِ في أيامك الجميلة،
+وأحب أن أكون قريبًا منكِ في أيامك الصعبة أيضًا. 🤍
+        </div>
+
+    </div>
+
+</section>
+
+<!-- لعبة جمع القلوب -->
+
+<section class="section" id="game">
 
     <h2>Catch My Heart ❤️</h2>
 
@@ -471,7 +748,7 @@ footer{
         </button>
     </div>
 
-    <div id="gameWin" class="hidden letter">
+    <div id="gameWin" class="hidden letter warmBox">
         🎉 أحسنتِ يا منورتي!
 
         لو كان بإمكاني، لجمعت كل الأشياء الجميلة في العالم ووضعتها بين يديكِ.
@@ -483,7 +760,7 @@ footer{
 
 <!-- عداد العلاقة -->
 
-<section class="section">
+<section class="section" id="counter">
 
     <h2>منذ أن بدأت حكايتنا ❤️</h2>
 
@@ -497,9 +774,9 @@ footer{
 
 </section>
 
-<!-- المفاجأة -->
+<!-- مفاجأة -->
 
-<section class="section surprise">
+<section class="section surprise" id="surprise">
 
     <h2>مفاجأة أخيرة لكِ 🎁</h2>
 
@@ -512,16 +789,62 @@ footer{
 
 لو سألتني ماذا أتمنى، فلن أطلب أيامًا مثالية ولا حياة بلا تعب.
 
-أتمنى فقط أن نمنح بعضنا الحب حين تكون الأيام سهلة، والحنان حين تكون صعبة، والصدق في كل وقت.
+أتمنى فقط أن نمنح بعضنا الحب حين تكون الأيام سهلة،
+والحنان حين تكون صعبة،
+والصدق في كل وقت.
 
-أتمنى أن تظل ضحكتك حاضرة، وأن لا تنسي أبدًا كم أنتِ جميلة في عيني، وكم يسعدني أنكِ موجودة في هذا العالم... وفي حياتي.
+أتمنى أن تظل ضحكتك حاضرة،
+وأن لا تنسي أبدًا كم أنتِ جميلة في عيني،
+وكم يسعدني أنكِ موجودة في هذا العالم... وفي حياتي.
 
 أحبك، بكل هدوء، وبكل ما في قلبي. ❤️
     </div>
 
 </section>
 
+<!-- سر أخير -->
+
+<section class="section surprise" id="secret">
+
+    <h2>💌 سر صغير</h2>
+
+    <p>هناك كلمات لا تظهر إلا عندما تقررين فتحها...</p>
+
+    <button onclick="openSecret()">اكشفي السر ❤️</button>
+
+    <div id="secretText" class="hidden secretBox">
+
+        <p>
+        لو عاد بي الزمن إلى اللحظة التي لم أعرفكِ فيها بعد،
+        ثم عرفت أن هناك فتاة اسمها منورتي
+        ستصبح كل هذه الأشياء الجميلة في قلبي...
+
+        لاخترت أن أتععرف عليكِ من جديد،
+        وأن أعيش الحكاية مرة أخرى،
+        بكل تفاصيلها، بكل ضحكاتها،
+        وبكل اللحظات التي جعلتني أحبك أكثر.
+
+        أنتِ من الأشياء التي لا أريد أن تكون مجرد ذكرى،
+        بل أريدها أن تبقى حكاية جميلة تتجدد كل يوم. ❤️
+        </p>
+
+    </div>
+
+</section>
+
 </main>
+
+<!-- القائمة السفلية بثلاث خانات -->
+
+<nav class="bottomNav hidden" id="bottomNav">
+
+    <button onclick="goTo('memories')">🌷 ذكرياتنا</button>
+
+    <button onclick="goTo('comfort')">🫂 حضن الكلمات</button>
+
+    <button onclick="goTo('stars')">🌙 أمنياتنا</button>
+
+</nav>
 
 <footer>
     صُنِع بكل الحب... من أجلكِ يا منورتي ♡
@@ -529,23 +852,38 @@ footer{
 
 <script>
 
-/* شاشة الدخول */
+/* فتح الموقع */
 
 function openSite(){
 
     document.getElementById("welcome").style.display="none";
     document.getElementById("content").classList.remove("hidden");
+    document.getElementById("bottomNav").classList.remove("hidden");
 
     window.scrollTo({top:0,behavior:"smooth"});
 
-    for(let i=0;i<12;i++){
+    for(let i=0;i<15;i++){
         setTimeout(()=>{
             createHeart(
                 window.innerWidth/2,
                 window.innerHeight/2
             );
         },i*100);
+}
+
+/* تنقل الخانات السفلية */
+
+function goTo(id){
+
+    const target=document.getElementById(id);
+
+    if(target){
+        target.scrollIntoView({
+            behavior:"smooth",
+            block:"start"
+        });
     }
+
 }
 
 /* أسباب الحب */
@@ -575,11 +913,12 @@ function revealReason(index){
         "And after all these reasons... I still have a million more. I love you, Monwarty. ❤️";
 
     }
+
 }
 
-/* نظام الرسائل */
+/* الرسائل المحفوظة */
 
-const STORAGE_KEY="monwarty_love_v2";
+const STORAGE_KEY="monwarty_love_v3";
 
 let data;
 
@@ -594,6 +933,7 @@ if(!data || !Number.isFinite(data.start) || !Array.isArray(data.opened)){
         start:Date.now(),
         opened:[false,false,false]
     };
+
     localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
 }
 
@@ -687,7 +1027,9 @@ function updateLetters(){
             btn.textContent="🔒 مغلقة";
             info.textContent="تفتح بعد: "+formatTime(unlockAfter[i]-elapsed());
         }
+
     }
+
 }
 
 function showLetter(i){
@@ -709,6 +1051,7 @@ function showLetter(i){
     });
 
     updateLetters();
+
 }
 
 /* عداد العلاقة */
@@ -754,12 +1097,13 @@ function updateTimer(){
     `;
 
     updateLetters();
+
 }
 
 setInterval(updateTimer,1000);
 updateTimer();
 
-/* القلوب المتحركة */
+/* قلوب متحركة */
 
 function createHeart(x,y){
 
@@ -777,6 +1121,7 @@ function createHeart(x,y){
     document.body.appendChild(heart);
 
     setTimeout(()=>heart.remove(),1500);
+
 }
 
 document.addEventListener("click",function(e){
@@ -784,13 +1129,104 @@ document.addEventListener("click",function(e){
     if(e.target.closest("button")){
         createHeart(e.clientX,e.clientY);
     }
+
 });
+
+/* رسائل الراحة */
+
+const comfortMessages=[
+
+`يا حبيبتي، لا بأس أن تحزني...
+لا يجب أن تتظاهري بالقوة طوال الوقت.
+أتمنى لو أستطيع أن أكون بجانبك الآن،
+وأخبرك أن كل شيء سيكون أخف بإذن الله.
+خذي وقتك، فأنتِ تستحقين الراحة والحنان. 🤍`,
+
+`يا منورتي، أعرف أن التعب يجعل كل شيء يبدو أثقل.
+لكن لا تنسي أنك لست مطالبة بإنجاز كل شيء اليوم.
+ارتاحي قليلًا، خذي نفسًا عميقًا،
+ودعي الأشياء تنتظر.
+أنتِ أهم من كل ما يستعجلك. 🌷`,
+
+`لو كنتِ تشتاقين إليّ الآن،
+أتمنى أن تصلك هذه الكلمات كأنها حضن صغير.
+أنا أتمنى أن أكون قريبًا منك،
+وأن أسمع صوتك،
+وأن أطمئن على قلبك.
+أنتِ قريبة مني مهما كانت المسافات. ❤️`,
+
+`أريد أن أذكرك بشيء:
+أنتِ جميلة، وغالية، وتستحقين الحب.
+ليس لأنك تفعلين شيئًا،
+بل لأنك أنتِ.
+لا تنسي قيمتك أبدًا،
+حتى في الأيام التي لا تشعرين فيها بها. 🤍`,
+
+`ابتسمي قليلًا يا منورتي،
+ليس لأن كل شيء مثالي،
+بل لأن هناك أشياء جميلة ما زالت تنتظرك.
+وربما تكون ابتسامتك الصغيرة اليوم
+بداية يوم أجمل مما تتوقعين. 🌸`
+
+];
+
+function comfort(index){
+
+    const box=document.getElementById("comfortMessage");
+
+    box.style.animation="none";
+    void box.offsetWidth;
+    box.style.animation="fadeIn .5s";
+
+    box.textContent=comfortMessages[index];
+
+}
+
+/* أمنيات النجوم */
+
+const wishes=[
+
+"أتمنى أن يكون قلبك دائمًا مطمئنًا، وأن تجد السعادة في أبسط الأشياء. ❤️",
+
+"أتمنى أن تجمعنا الأيام القادمة بالكثير من اللحظات الجميلة، وأن تبقى ضحكتك قريبة مني. 🌷",
+
+"أتمنى أن تتحقق أحلامك واحدة تلو الأخرى، وأن أراكِ دائمًا فخورة بنفسك. ✨",
+
+"أمنيتي الصغيرة هي أن أكون سببًا في ابتسامة تظهر على وجهك كل يوم. 💗",
+
+"أتمنى لنا أيامًا مليئة بالصدق والحنان والذكريات الجميلة، وأن يبقى الحب بيننا دافئًا. 🌙"
+
+];
+
+function starWish(index){
+
+    const box=document.getElementById("starWish");
+
+    box.style.animation="none";
+    void box.offsetWidth;
+    box.style.animation="fadeIn .8s";
+
+    box.textContent=wishes[index];
+
+    for(let i=0;i<5;i++){
+        setTimeout(()=>{
+            createHeart(
+                Math.random()*window.innerWidth,
+                window.innerHeight*.7
+            );
+        },i*150);
+}
 
 /* لعبة جمع 10 قلوب */
 
 let score=0;
 let gameRunning=false;
 let gameTimers=[];
+
+function clearGameTimers(){
+    gameTimers.forEach(clearTimeout);
+    gameTimers=[];
+}
 
 function spawnHeart(){
 
@@ -824,8 +1260,7 @@ function spawnHeart(){
         if(score>=10){
 
             gameRunning=false;
-            gameTimers.forEach(clearTimeout);
-            gameTimers=[];
+            clearGameTimers();
 
             area.innerHTML="✨ لقد جمعتِ كل القلوب ✨";
 
@@ -836,6 +1271,7 @@ function spawnHeart(){
         }else{
             spawnHeart();
         }
+
     };
 
     const timer=setTimeout(()=>{
@@ -848,12 +1284,12 @@ function spawnHeart(){
     },4000);
 
     gameTimers.push(timer);
+
 }
 
 function startGame(){
 
-    gameTimers.forEach(clearTimeout);
-    gameTimers=[];
+    clearGameTimers();
 
     score=0;
     gameRunning=true;
@@ -866,6 +1302,7 @@ function startGame(){
     for(let i=0;i<4;i++){
         spawnHeart();
     }
+
 }
 
 /* المفاجأة */
@@ -887,7 +1324,33 @@ function showSurprise(){
                 window.innerHeight*.7
             );
         },i*100);
+
     }
+
+}
+
+/* السر */
+
+function openSecret(){
+
+    document.getElementById("secretText").classList.remove("hidden");
+
+    document.getElementById("secretText").scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+
+    for(let i=0;i<15;i++){
+
+        setTimeout(()=>{
+            createHeart(
+                Math.random()*window.innerWidth,
+                window.innerHeight*.7
+            );
+        },i*120);
+
+    }
+
 }
 
 </script>
