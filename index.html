@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -12,6 +11,8 @@
 
 *{box-sizing:border-box}
 
+html{scroll-padding-top:20px;}
+
 body{
     margin:0;
     color:#fff0fa;
@@ -19,6 +20,7 @@ body{
     background:radial-gradient(circle at top,#54205e,#210d30 45%,#100717 100%);
     min-height:100vh;
     overflow-x:hidden;
+    padding-bottom:140px;
 }
 
 body::before{
@@ -46,15 +48,10 @@ button{
     transition:.3s;
 }
 
-button:hover{
-    transform:scale(1.04);
-    box-shadow:0 0 30px #ff69c788;
-}
+button:hover{transform:scale(1.04);box-shadow:0 0 30px #ff69c788;}
+button:disabled{opacity:.45;cursor:not-allowed;}
 
-button:disabled{
-    opacity:.45;
-    cursor:not-allowed;
-}
+/* ===================== الصفحة الرئيسية ===================== */
 
 .hero{
     min-height:100vh;
@@ -74,9 +71,7 @@ button:disabled{
     animation:moonFloat 4s ease-in-out infinite;
 }
 
-@keyframes moonFloat{
-    50%{transform:translateY(-12px)}
-}
+@keyframes moonFloat{50%{transform:translateY(-12px)}}
 
 .hero h1{
     font-family:'Amiri',serif;
@@ -93,17 +88,111 @@ button:disabled{
     line-height:1.9;
 }
 
+/* ===================== إدارة الصفحات (SPA) ===================== */
+
+#content{
+    min-height:100vh;
+    padding-top:8px;
+    position:relative;
+    z-index:1;
+}
+
+.page{animation:pageFadeIn 0.4s ease both;}
+
+@keyframes pageFadeIn{
+    from{opacity:0;transform:translateY(14px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+.pageHeader{
+    text-align:center;
+    padding:25px 20px 8px;
+    position:relative;
+    z-index:1;
+}
+
+.pageEmoji{
+    font-size:52px;
+    filter:drop-shadow(0 0 18px #ff9cde);
+    animation:moonFloat 3s ease-in-out infinite;
+    display:inline-block;
+}
+
+.pageHeader h2{
+    font-family:'Amiri',serif;
+    color:#ffc9ee;
+    font-size:32px;
+    margin:8px 0 4px;
+    text-shadow:0 0 22px #ff68c6;
+    padding-bottom:0;
+}
+
+.pageHeader h2::before{display:none}
+
+.pageHeader p{
+    font-family:'Amiri',serif;
+    color:#e9b5f4;
+    font-size:17px;
+    margin:0 0 6px;
+}
+
+/* ===================== الأقسام ===================== */
+
 .section{
     width:min(94%,900px);
-    margin:22px auto;
-    padding:25px 20px;
+    margin:36px auto;
+    padding:28px 22px;
     background:rgba(44,17,56,.85);
     border:1px solid #d76bb5;
     border-radius:24px;
-    box-shadow:0 0 25px #d34fa51c;
+    box-shadow:0 0 25px #d34fa51c, 0 8px 30px rgba(0,0,0,.25);
     backdrop-filter:blur(8px);
     position:relative;
     z-index:1;
+    scroll-margin-top:20px;
+}
+
+.section::before{
+    content:"";
+    position:absolute;
+    top:-1px;
+    left:50%;
+    transform:translateX(-50%);
+    width:120px;
+    height:4px;
+    border-radius:0 0 10px 10px;
+    background:linear-gradient(90deg,transparent,#ff9cde,#ec8bce,#ff9cde,transparent);
+    box-shadow:0 0 15px #ff69c755;
+}
+
+.sectionDivider{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    width:min(80%,520px);
+    margin:6px auto;
+    color:#ff9cde;
+    font-size:18px;
+    position:relative;
+    z-index:1;
+    user-select:none;
+}
+
+.sectionDivider::before,
+.sectionDivider::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:linear-gradient(to right,transparent,#d76bb5,transparent);
+}
+
+.sectionDivider .dot{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    text-shadow:0 0 12px #ff69c7;
+    letter-spacing:4px;
 }
 
 h2{
@@ -113,6 +202,8 @@ h2{
     font-size:29px;
     margin-top:0;
 }
+
+h3{color:#ffd0ef}
 
 .letter{
     font-family:'Amiri',serif;
@@ -136,6 +227,15 @@ h2{
     gap:12px;
 }
 
+/* ترتيب خاص لقسم الرسائل الخمس: 3 في الأعلى + 2 في الوسط */
+#lettersSection .cards{
+    grid-template-columns:repeat(6,1fr);
+}
+
+#lettersSection .card{grid-column:span 2;}
+#lettersSection .card:nth-child(4){grid-column:2 / span 2;}
+#lettersSection .card:nth-child(5){grid-column:4 / span 2;}
+
 .card{
     padding:18px 12px;
     background:linear-gradient(145deg,#431c51,#241130);
@@ -148,7 +248,7 @@ h2{
     gap:12px;
 }
 
-.card h3{color:#ffd0ef;margin:0}
+.card h3{color:#ffd0ef;margin:0;font-size:16px;}
 .card p{font-size:14px;color:#e3c5ee;line-height:1.9}
 
 .lockInfo{
@@ -181,12 +281,7 @@ h2{
     text-align:center;
 }
 
-.timebox strong{
-    display:block;
-    color:#ffd2ed;
-    font-size:22px;
-}
-
+.timebox strong{display:block;color:#ffd2ed;font-size:22px;}
 .timebox small{color:#dfbde9}
 
 .gameArea{
@@ -242,15 +337,10 @@ h2{
 }
 
 @keyframes rise{
-    to{
-        transform:translateY(-150px);
-        opacity:0;
-    }
+    to{transform:translateY(-150px);opacity:0;}
 }
 
-.reasonCard{
-    transition:.4s;
-}
+.reasonCard{transition:.4s}
 
 .reasonCard.revealed{
     border-color:#ff9cde;
@@ -276,20 +366,183 @@ h2{
     animation:fadeIn 1s ease;
 }
 
+.warmBox{
+    background:linear-gradient(145deg,#351640,#1e102a);
+    border:1px solid #a954a0;
+    border-radius:20px;
+    padding:20px;
+    text-align:center;
+    margin:15px 0;
+    line-height:2;
+}
+
+.memoryLine{
+    position:relative;
+    padding:10px 20px 10px 10px;
+    margin:15px 0;
+    border-right:2px solid #ec8bce;
+}
+
+.memoryLine::before{
+    content:"💗";
+    position:absolute;
+    right:-12px;
+    top:12px;
+}
+
+.memoryLine h3{margin:0 0 8px}
+.memoryLine p{color:#e8c6ef;line-height:1.9;}
+
+.moodButtons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+    margin:20px 0;
+}
+
+.moodButtons button{background:linear-gradient(145deg,#492254,#762d7d);}
+
+#comfortMessage{
+    font-family:'Amiri',serif;
+    font-size:23px;
+    line-height:2;
+    color:#ffe3f5;
+    text-align:center;
+    padding:20px;
+    animation:fadeIn .5s;
+}
+
+.starArea{
+    text-align:center;
+    padding:20px;
+    line-height:2.2;
+}
+
+.starButton{
+    background:none;
+    border:none;
+    box-shadow:none;
+    padding:8px;
+    font-size:42px;
+    color:#fff5c9;
+    text-shadow:0 0 20px #ffe38a;
+    animation:starPulse 2s infinite alternate;
+}
+
+@keyframes starPulse{
+    from{filter:brightness(.8)}
+    to{filter:brightness(1.5)}
+}
+
+#starWish{
+    font-family:'Amiri',serif;
+    color:#ffe3f5;
+    font-size:23px;
+    line-height:2;
+    margin-top:20px;
+}
+
+.secretBox{
+    padding:20px;
+    text-align:center;
+    background:rgba(255,255,255,.04);
+    border-radius:18px;
+    border:1px dashed #cf77c0;
+    margin-top:15px;
+}
+
+.secretBox p{
+    font-family:'Amiri',serif;
+    font-size:21px;
+    line-height:2;
+}
+
 footer{
     text-align:center;
-    padding:35px 10px;
+    padding:35px 10px 20px;
     color:#e8b5ed;
     font-family:'Amiri',serif;
     position:relative;
     z-index:1;
 }
 
+/* ===================== القائمة السفلية الثابتة ===================== */
+
+.bottomNav{
+    position:fixed;
+    z-index:999;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(96%,500px);
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    padding:10px 10px calc(10px + env(safe-area-inset-bottom));
+    background:rgba(24,8,33,.97);
+    border:1px solid #ba63a9;
+    border-bottom:none;
+    border-radius:22px 22px 0 0;
+    backdrop-filter:blur(15px);
+    box-shadow:0 -8px 30px rgba(230,74,181,.25), 0 -2px 12px rgba(0,0,0,.4);
+}
+
+.bottomNav button{
+    padding:10px 5px;
+    border-radius:15px;
+    background:linear-gradient(145deg,#3a1a48,#26122f);
+    border:1px solid #7a3b78;
+    box-shadow:none;
+    font-size:13px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+    color:#eac7ec;
+    transition:.25s;
+    position:relative;
+}
+
+.bottomNav button .icon{font-size:18px;line-height:1;}
+.bottomNav button .label{font-size:12px;line-height:1;}
+
+.bottomNav button.active{
+    background:linear-gradient(145deg,#a53c8e,#652e82);
+    border-color:#ff9cde;
+    color:#fff;
+    box-shadow:0 0 15px #ff69c755;
+}
+
+.bottomNav button.active::after{
+    content:"";
+    position:absolute;
+    top:-6px;
+    left:50%;
+    transform:translateX(-50%);
+    width:26px;
+    height:3px;
+    border-radius:3px;
+    background:#ff9cde;
+    box-shadow:0 0 10px #ff9cde;
+}
+
+.bottomNav button:active{
+    background:linear-gradient(145deg,#a53c8e,#652e82);
+}
+
 @media(max-width:650px){
     .cards{grid-template-columns:1fr}
-    .section{padding:20px 14px}
+    #lettersSection .cards{grid-template-columns:1fr}
+    #lettersSection .card,
+    #lettersSection .card:nth-child(4),
+    #lettersSection .card:nth-child(5){grid-column:auto}
+    .section{padding:22px 14px; margin:28px auto}
     .letter{font-size:19px}
     .hero p{font-size:19px}
+    .pageHeader h2{font-size:27px}
+    .bottomNav button{font-size:12px;padding:9px 3px}
+    .bottomNav button .label{font-size:11px}
 }
 </style>
 </head>
@@ -297,31 +550,30 @@ footer{
 <body>
 
 <header class="hero" id="welcome">
-
     <div class="moon">🌙</div>
-
     <p>♡ عالم صغير صنعته لكِ ♡</p>
-
     <h1>إلى منورتيييي</h1>
-
     <p>
         هناك شيء صغير صنعته لكِ...<br>
         لكنه يحمل مشاعر أكبر من أن أستطيع وصفها.
     </p>
-
     <button onclick="openSite()">افتحي قلبي ❤️</button>
-
 </header>
 
 <main id="content" class="hidden">
 
-<!-- رسالة الحب -->
+    <!-- ============ صفحة 1: ذكرياتنا ============ -->
+    <div class="page" id="page-memories">
 
-<section class="section">
+        <div class="pageHeader">
+            <div class="pageEmoji">🌷</div>
+            <h2>ذكرياتنا</h2>
+            <p>كل لحظة معكِ تصبح ذكرى</p>
+        </div>
 
-    <h2>إلى منورتي، أجمل صدفة في حياتي 💌</h2>
-
-    <div class="letter">
+        <section class="section">
+            <h2>إلى منورتي، أجمل صدفة في حياتي 💌</h2>
+            <div class="letter">
 منذ 3 نوفمبر 2022، صار في حياتي شيء مختلف...
 شيء يجعل الأيام العادية أجمل، ويجعلني أبتسم أحيانًا دون أن أنتبه، فقط لأنني تذكرتك.
 
@@ -334,192 +586,293 @@ footer{
 أنتِ محبوبة، وغالية، ولا تحتاجين إلى أن تكوني مثالية كي تستحقي كل هذا الحب.
 
 أنا أحبك لأنك أنتِ، يا منورتي. ❤️
-    </div>
+            </div>
+            <p class="signature">— من شخص قلبه يبتسم كلما تذكركِ</p>
+        </section>
 
-    <p class="signature">
-        — من شخص قلبه يبتسم كلما تذكركِ
-    </p>
+        <div class="sectionDivider"><span class="dot">✦ 💗 ✦</span></div>
 
-</section>
+        <section class="section" id="reasons">
+            <h2>لماذا أحبك يا منورتي؟ 💗</h2>
+            <p style="text-align:center">هناك أشياء كثيرة أحبها فيكِ... اضغطي على كل قلب لتكتشفي واحدًا منها.</p>
 
-<!-- أسباب الحب التفاعلية -->
+            <div class="cards">
+                <div class="card reasonCard" id="reasonCard0">
+                    <h3>❤️ Your Smile</h3>
+                    <button onclick="revealReason(0)">افتحي قلبي</button>
+                    <p id="reason0" class="hidden reasonText">لأن ابتسامتك تجعل أصعب أيامي أخف وأجمل.</p>
+                </div>
+                <div class="card reasonCard" id="reasonCard1">
+                    <h3>🌷 Your Personality</h3>
+                    <button onclick="revealReason(1)">افتحي قلبي</button>
+                    <p id="reason1" class="hidden reasonText">لأنكِ أنتِ، بتفاصيلك وعفويتك، لا تشبهين أحدًا.</p>
+                </div>
+                <div class="card reasonCard" id="reasonCard2">
+                    <h3>🌙 Your Presence</h3>
+                    <button onclick="revealReason(2)">افتحي قلبي</button>
+                    <p id="reason2" class="hidden reasonText">لأن وجودك وحده يجعل العالم أكثر دفئًا.</p>
+                </div>
+                <div class="card reasonCard" id="reasonCard3">
+                    <h3>💞 Our Memories</h3>
+                    <button onclick="revealReason(3)">افتحي قلبي</button>
+                    <p id="reason3" class="hidden reasonText">لأن أجمل ما في بعض أيامي هو أنها تحمل ذكراكِ.</p>
+                </div>
+                <div class="card reasonCard" id="reasonCard4">
+                    <h3>✨ Your Heart</h3>
+                    <button onclick="revealReason(4)">افتحي قلبي</button>
+                    <p id="reason4" class="hidden reasonText">لأن قلبك يستحق حبًا صادقًا واهتمامًا لا ينتهي.</p>
+                </div>
+                <div class="card reasonCard" id="reasonCard5">
+                    <h3>💍 Simply You</h3>
+                    <button onclick="revealReason(5)">افتحي قلبي</button>
+                    <p id="reason5" class="hidden reasonText">لأنني لا أحتاج إلى سبب جديد لأحبك، فأنتِ السبب كله.</p>
+                </div>
+            </div>
 
-<section class="section" id="reasons">
+            <p class="signature" id="allReasons"></p>
+        </section>
 
-    <h2>لماذا أحبك يا منورتي؟ 💗</h2>
+        <div class="sectionDivider"><span class="dot">✦ 🌸 ✦</span></div>
 
-    <p style="text-align:center">
-        هناك أشياء كثيرة أحبها فيكِ...
-        اضغطي على كل قلب لتكتشفي واحدًا منها.
-    </p>
+        <section class="section" id="memories">
+            <h2>🌷 ركن ذكرياتنا</h2>
+            <p class="signature">بعض الأيام تمر... وبعض الأيام تبقى في القلب إلى الأبد.</p>
 
-    <div class="cards">
+            <div class="warmBox">
+                <div class="memoryLine">
+                    <h3>3 نوفمبر 2022 ❤️</h3>
+                    <p>اليوم الذي بدأت فيه حكاية أصبحت جزءًا من قلبي. لم أكن أعلم أن هذا التاريخ سيصبح يومًا يحمل كل هذا المعنى.</p>
+                </div>
+                <div class="memoryLine">
+                    <h3>أيامنا الصغيرة 🌸</h3>
+                    <p>الرسائل، الضحكات، الحديث الطويل، وحتى التفاصيل التي قد تبدو عادية... أصبحت أشياء أحب أن أتذكرها.</p>
+                </div>
+                <div class="memoryLine">
+                    <h3>وما زالت الحكاية مستمرة ✨</h3>
+                    <p>أجمل ذكرى بالنسبة لي ليست فقط ما حدث، بل ما أتمنى أن نعيشه معًا في الأيام القادمة.</p>
+                </div>
+            </div>
 
-        <div class="card reasonCard" id="reasonCard0">
-            <h3>❤️ Your Smile</h3>
-            <button onclick="revealReason(0)">افتحي قلبي</button>
-            <p id="reason0" class="hidden reasonText">
-                لأن ابتسامتك تجعل أصعب أيامي أخف وأجمل.
+            <p class="letter">
+أتمنى أن نضيف إلى هذا الركن ذكريات كثيرة،
+حتى يصبح مليئًا بالأيام التي تجعلنا نبتسم كلما عدنا إليها. ❤️
             </p>
-        </div>
+        </section>
 
-        <div class="card reasonCard" id="reasonCard1">
-            <h3>🌷 Your Personality</h3>
-            <button onclick="revealReason(1)">افتحي قلبي</button>
-            <p id="reason1" class="hidden reasonText">
-                لأنكِ أنتِ، بتفاصيلك وعفويتك، لا تشبهين أحدًا.
-            </p>
-        </div>
+        <div class="sectionDivider"><span class="dot">✦ ⏳ ✦</span></div>
 
-        <div class="card reasonCard" id="reasonCard2">
-            <h3>🌙 Your Presence</h3>
-            <button onclick="revealReason(2)">افتحي قلبي</button>
-            <p id="reason2" class="hidden reasonText">
-                لأن وجودك وحده يجعل العالم أكثر دفئًا.
-            </p>
-        </div>
-
-        <div class="card reasonCard" id="reasonCard3">
-            <h3>💞 Our Memories</h3>
-            <button onclick="revealReason(3)">افتحي قلبي</button>
-            <p id="reason3" class="hidden reasonText">
-                لأن أجمل ما في بعض أيامي هو أنها تحمل ذكراكِ.
-            </p>
-        </div>
-
-        <div class="card reasonCard" id="reasonCard4">
-            <h3>✨ Your Heart</h3>
-            <button onclick="revealReason(4)">افتحي قلبي</button>
-            <p id="reason4" class="hidden reasonText">
-                لأن قلبك يستحق حبًا صادقًا واهتمامًا لا ينتهي.
-            </p>
-        </div>
-
-        <div class="card reasonCard" id="reasonCard5">
-            <h3>💍 Simply You</h3>
-            <button onclick="revealReason(5)">افتحي قلبي</button>
-            <p id="reason5" class="hidden reasonText">
-                لأنني لا أحتاج إلى سبب جديد لأحبك، فأنتِ السبب كله.
-            </p>
-        </div>
-
-    </div>
-
-    <p class="signature" id="allReasons"></p>
-
-</section>
-
-<!-- الرسائل الثلاث -->
-
-<section class="section">
-
-    <h2>ثلاث رسائل صغيرة من قلبي 💗</h2>
-
-    <p style="text-align:center">
-        رسالة الآن، ورسالة بعد 6 ساعات، ورسالة أخرى بعد 12 ساعة.
-    </p>
-
-    <div class="cards">
-
-        <div class="card">
-            <h3>🌷 عندما تشتاقين إليّ</h3>
-            <p>رسالة صغيرة تذكركِ كم أنتِ قريبة من قلبي.</p>
-            <button id="btn0" onclick="showLetter(0)">افتحي الرسالة</button>
-            <div class="lockInfo" id="info0"></div>
-        </div>
-
-        <div class="card">
-            <h3>🌙 عندما يتعب قلبك</h3>
-            <p>تذكير بأنكِ لستِ وحدك.</p>
-            <button id="btn1" onclick="showLetter(1)" disabled>🔒 مغلقة</button>
-            <div class="lockInfo" id="info1"></div>
-        </div>
-
-        <div class="card">
-            <h3>💞 شيء لم أخبركِ به</h3>
-            <p>كلمات خبأتها لكِ لتصل في وقتها.</p>
-            <button id="btn2" onclick="showLetter(2)" disabled>🔒 مغلقة</button>
-            <div class="lockInfo" id="info2"></div>
-        </div>
+        <section class="section" id="counter">
+            <h2>منذ أن بدأت حكايتنا ❤️</h2>
+            <p style="text-align:center">3 نوفمبر 2022</p>
+            <div class="timer" id="timer"></div>
+            <p class="signature">وكل يوم يضيف ذكرى أجمل إلى حكايتنا ❤️</p>
+        </section>
 
     </div>
 
-    <div id="letterDisplay" class="hidden">
-        <h2 id="letterTitle"></h2>
-        <div class="letter" id="letterBody"></div>
+    <!-- ============ صفحة 2: حضن الكلمات ============ -->
+    <div class="page hidden" id="page-comfort">
+
+        <div class="pageHeader">
+            <div class="pageEmoji">🫂</div>
+            <h2>حضن الكلمات</h2>
+            <p>عندما تحتاجين إلى دفء وطمأنينة</p>
+        </div>
+
+        <section class="section" id="comfort">
+            <h2>🫂 عندما يكون يومك صعبًا</h2>
+            <p style="text-align:center">اختاري ما يشبه شعورك الآن... وهناك كلمات صغيرة تنتظرك.</p>
+
+            <div class="moodButtons">
+                <button onclick="comfort(0)">😔 أنا حزينة</button>
+                <button onclick="comfort(1)">😣 أنا متعبة</button>
+                <button onclick="comfort(2)">🥺 أشتاق إليك</button>
+                <button onclick="comfort(3)">🤍 أحتاج إلى كلام لطيف</button>
+                <button onclick="comfort(4)">🌸 أريد أن أبتسم</button>
+            </div>
+
+            <div class="warmBox">
+                <div id="comfortMessage">
+يا منورتي، مهما كان شعورك الآن،
+أتمنى أن تجدي هنا شيئًا يخفف عن قلبك قليلًا. ❤️
+                </div>
+            </div>
+        </section>
+
+        <div class="sectionDivider"><span class="dot">✦ 💌 ✦</span></div>
+
+        <!-- ============ الرسائل الخمس ============ -->
+        <section class="section" id="lettersSection">
+            <h2>خمس رسائل صغيرة من قلبي 💗</h2>
+            <p style="text-align:center">
+                رسالة الآن، ثم بعد 6 ساعات، ثم 12، ثم 18، ثم 24 ساعة.<br>
+                كل رسالة تصل في وقتها لتكون معكِ حين تحتاجينها.
+            </p>
+
+            <div class="cards">
+
+                <div class="card">
+                    <h3>🌷 عندما تشتاقين إليّ</h3>
+                    <p>رسالة صغيرة تذكركِ كم أنتِ قريبة من قلبي.</p>
+                    <button id="btn0" onclick="showLetter(0)">افتحي الرسالة</button>
+                    <div class="lockInfo" id="info0"></div>
+                </div>
+
+                <div class="card">
+                    <h3>🌙 عندما يتعب قلبك</h3>
+                    <p>تذكير بأنكِ لستِ وحدك.</p>
+                    <button id="btn1" onclick="showLetter(1)" disabled>🔒 مغلقة</button>
+                    <div class="lockInfo" id="info1"></div>
+                </div>
+
+                <div class="card">
+                    <h3>💞 شيء لم أخبركِ به</h3>
+                    <p>كلمات خبأتها لكِ لتصل في وقتها.</p>
+                    <button id="btn2" onclick="showLetter(2)" disabled>🔒 مغلقة</button>
+                    <div class="lockInfo" id="info2"></div>
+                </div>
+
+                <div class="card">
+                    <h3>🌷 شيء أتمنى أن تشعري به دائمًا</h3>
+                    <p>كلمات تذكّركِ بقيمتكِ ومكانتكِ.</p>
+                    <button id="btn3" onclick="showLetter(3)" disabled>🔒 مغلقة</button>
+                    <div class="lockInfo" id="info3"></div>
+                </div>
+
+                <div class="card">
+                    <h3>💍 لو عاد بي الزمن، لاخترتكِ من جديد</h3>
+                    <p>لو عاد بي الزمن، لن يتغير قراري.</p>
+                    <button id="btn4" onclick="showLetter(4)" disabled>🔒 مغلقة</button>
+                    <div class="lockInfo" id="info4"></div>
+                </div>
+
+            </div>
+
+            <div id="letterDisplay" class="hidden">
+                <h2 id="letterTitle"></h2>
+                <div class="letter" id="letterBody"></div>
+            </div>
+        </section>
+
+        <div class="sectionDivider"><span class="dot">✦ 🕯️ ✦</span></div>
+
+        <section class="section" id="safePlace">
+            <h2>🕯️ هنا يمكنكِ أن ترتاحي</h2>
+            <div class="warmBox">
+                <div class="letter">
+هذا المكان لكِ...
+
+لا تحتاجين هنا إلى أن تكوني قوية.
+لا تحتاجين إلى أن تبتسمي إن لم يكن قلبك يريد ذلك.
+ولا تحتاجين إلى إخفاء أي شعور.
+
+إن كنتِ سعيدة، سأفرح معكِ.
+وإن كنتِ متعبة، أتمنى أن أكون سببًا في راحتك.
+وإن أردتِ الصمت، فحتى صمتكِ له مكان.
+
+أحبكِ في أيامك الجميلة،
+وأحب أن أكون قريبًا منكِ في أيامك الصعبة أيضًا. 🤍
+                </div>
+            </div>
+        </section>
+
     </div>
 
-</section>
+    <!-- ============ صفحة 3: أمنياتنا ============ -->
+    <div class="page hidden" id="page-stars">
 
-<!-- لعبة القلوب -->
+        <div class="pageHeader">
+            <div class="pageEmoji">🌙</div>
+            <h2>أمنياتنا</h2>
+            <p>أمنيات صغيرة تحت النجوم</p>
+        </div>
 
-<section class="section">
+        <section class="section" id="stars">
+            <h2>🌙 أمنية تحت النجوم</h2>
+            <p style="text-align:center">اضغطي على نجمة... ربما تحمل لكِ أمنية صغيرة.</p>
 
-    <h2>Catch My Heart ❤️</h2>
+            <div class="starArea">
+                <button class="starButton" onclick="starWish(0)">⭐</button>
+                <button class="starButton" onclick="starWish(1)">✨</button>
+                <button class="starButton" onclick="starWish(2)">🌟</button>
+                <button class="starButton" onclick="starWish(3)">⭐</button>
+                <button class="starButton" onclick="starWish(4)">✨</button>
 
-    <p style="text-align:center">
-        التقطي 10 قلوب لتكتشفي رسالة صغيرة منّي.
-    </p>
+                <div id="starWish">اختاري نجمتك يا منورتي 💫</div>
+            </div>
+        </section>
 
-    <div class="score" id="score">القلوب: 0 / 10</div>
+        <div class="sectionDivider"><span class="dot">✦ 🎮 ✦</span></div>
 
-    <div class="gameArea" id="gameArea"></div>
+        <section class="section" id="game">
+            <h2>Catch My Heart ❤️</h2>
+            <p style="text-align:center">التقطي 10 قلوب لتكتشفي رسالة صغيرة منّي.</p>
 
-    <div style="text-align:center;margin-top:15px">
-        <button onclick="startGame()" id="startGame">
-            ابدئي اللعبة 🎮
-        </button>
-    </div>
+            <div class="score" id="score">القلوب: 0 / 10</div>
+            <div class="gameArea" id="gameArea"></div>
 
-    <div id="gameWin" class="hidden letter">
-        🎉 أحسنتِ يا منورتي!
+            <div style="text-align:center;margin-top:15px">
+                <button onclick="startGame()" id="startGame">ابدئي اللعبة 🎮</button>
+            </div>
 
-        لو كان بإمكاني، لجمعت كل الأشياء الجميلة في العالم ووضعتها بين يديكِ.
+            <div id="gameWin" class="hidden letter warmBox">
+🎉 أحسنتِ يا منورتي!
 
-        لكن بما أنني لا أملك ذلك، سأعطيكِ قلبي... وهو لكِ أصلًا. ❤️
-    </div>
+لو كان بإمكاني، لجمعت كل الأشياء الجميلة في العالم ووضعتها بين يديكِ.
 
-</section>
+لكن بما أنني لا أملك ذلك، سأعطيكِ قلبي... وهو لكِ أصلًا. ❤️
+            </div>
+        </section>
 
-<!-- عداد العلاقة -->
+        <div class="sectionDivider"><span class="dot">✦ 🎁 ✦</span></div>
 
-<section class="section">
+        <section class="section surprise" id="surprise">
+            <h2>مفاجأة أخيرة لكِ 🎁</h2>
+            <p>هناك شيء صغير ينتظر منكِ الضغط...</p>
+            <button onclick="showSurprise()">افتحي مفاجأتك ✨</button>
 
-    <h2>منذ أن بدأت حكايتنا ❤️</h2>
-
-    <p style="text-align:center">3 نوفمبر 2022</p>
-
-    <div class="timer" id="timer"></div>
-
-    <p class="signature">
-        وكل يوم يضيف ذكرى أجمل إلى حكايتنا ❤️
-    </p>
-
-</section>
-
-<!-- المفاجأة -->
-
-<section class="section surprise">
-
-    <h2>مفاجأة أخيرة لكِ 🎁</h2>
-
-    <p>هناك شيء صغير ينتظر منكِ الضغط...</p>
-
-    <button onclick="showSurprise()">افتحي مفاجأتك ✨</button>
-
-    <div id="surpriseText" class="hidden surpriseText">
+            <div id="surpriseText" class="hidden surpriseText">
 يا منورتي،
 
 لو سألتني ماذا أتمنى، فلن أطلب أيامًا مثالية ولا حياة بلا تعب.
 
-أتمنى فقط أن نمنح بعضنا الحب حين تكون الأيام سهلة، والحنان حين تكون صعبة، والصدق في كل وقت.
+أتمنى فقط أن نمنح بعضنا الحب حين تكون الأيام سهلة،
+والحنان حين تكون صعبة،
+والصدق في كل وقت.
 
-أتمنى أن تظل ضحكتك حاضرة، وأن لا تنسي أبدًا كم أنتِ جميلة في عيني، وكم يسعدني أنكِ موجودة في هذا العالم... وفي حياتي.
+أتمنى أن تظل ضحكتك حاضرة،
+وأن لا تنسي أبدًا كم أنتِ جميلة في عيني،
+وكم يسعدني أنكِ موجودة في هذا العالم... وفي حياتي.
 
 أحبك، بكل هدوء، وبكل ما في قلبي. ❤️
-    </div>
+            </div>
+        </section>
 
-</section>
+        <div class="sectionDivider"><span class="dot">✦ 💌 ✦</span></div>
+
+        <section class="section surprise" id="secret">
+            <h2>💌 سر صغير</h2>
+            <p>هناك كلمات لا تظهر إلا عندما تقررين فتحها...</p>
+            <button onclick="openSecret()">اكشفي السر ❤️</button>
+
+            <div id="secretText" class="hidden secretBox">
+                <p>
+لو عاد بي الزمن إلى اللحظة التي لم أعرفكِ فيها بعد،
+ثم عرفت أن هناك فتاة اسمها منورتي
+ستصبح كل هذه الأشياء الجميلة في قلبي...
+
+لاخترت أن أتعرف عليكِ من جديد،
+وأن أعيش الحكاية مرة أخرى،
+بكل تفاصيلها، بكل ضحكاتها،
+وبكل اللحظات التي جعلتني أحبك أكثر.
+
+أنتِ من الأشياء التي لا أريد أن تكون مجرد ذكرى،
+بل أريدها أن تبقى حكاية جميلة تتجدد كل يوم. ❤️
+                </p>
+            </div>
+        </section>
+
+    </div>
 
 </main>
 
@@ -527,83 +880,122 @@ footer{
     صُنِع بكل الحب... من أجلكِ يا منورتي ♡
 </footer>
 
+<nav class="bottomNav hidden" id="bottomNav">
+    <button data-page="page-memories" class="active" onclick="showPage('page-memories')">
+        <span class="icon">🌷</span>
+        <span class="label">ذكرياتنا</span>
+    </button>
+    <button data-page="page-comfort" onclick="showPage('page-comfort')">
+        <span class="icon">🫂</span>
+        <span class="label">حضن الكلمات</span>
+    </button>
+    <button data-page="page-stars" onclick="showPage('page-stars')">
+        <span class="icon">🌙</span>
+        <span class="label">أمنياتنا</span>
+    </button>
+</nav>
+
 <script>
 
-/* شاشة الدخول */
+/* ===================== فتح الموقع ===================== */
 
 function openSite(){
-
     document.getElementById("welcome").style.display="none";
     document.getElementById("content").classList.remove("hidden");
-
-    window.scrollTo({top:0,behavior:"smooth"});
-
-    for(let i=0;i<12;i++){
+    document.getElementById("bottomNav").classList.remove("hidden");
+    showPage('page-memories');
+    for(let i=0;i<15;i++){
         setTimeout(()=>{
-            createHeart(
-                window.innerWidth/2,
-                window.innerHeight/2
-            );
+            createHeart(window.innerWidth/2, window.innerHeight/2);
         },i*100);
     }
 }
 
-/* أسباب الحب */
+/* ===================== التنقل بين الصفحات ===================== */
 
-const revealedReasons=new Set();
+function showPage(id){
+
+    if(gameRunning && id !== 'page-stars'){
+        gameRunning = false;
+        clearGameTimers();
+        score = 0;
+        const area = document.getElementById("gameArea");
+        if(area) area.innerHTML = "";
+        document.getElementById("startGame").textContent = "ابدئي اللعبة 🎮";
+        document.getElementById("score").textContent = "القلوب: 0 / 10";
+        document.getElementById("gameWin").classList.add("hidden");
+    }
+
+    document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
+
+    const page = document.getElementById(id);
+    if(!page) return;
+
+    page.classList.remove('hidden');
+    page.style.animation = 'none';
+    void page.offsetWidth;
+    page.style.animation = '';
+
+    document.querySelectorAll('.bottomNav button').forEach(btn=>{
+        btn.classList.toggle('active', btn.dataset.page === id);
+    });
+
+    document.documentElement.style.scrollBehavior = 'auto';
+    window.scrollTo(0, 0);
+    document.documentElement.style.scrollBehavior = '';
+}
+
+/* ===================== أسباب الحب ===================== */
+
+const revealedReasons = new Set();
 
 function revealReason(index){
-
-    const reason=document.getElementById("reason"+index);
-    const card=document.getElementById("reasonCard"+index);
-
-    if(!reason || revealedReasons.has(index))return;
+    const reason = document.getElementById("reason"+index);
+    const card   = document.getElementById("reasonCard"+index);
+    if(!reason || revealedReasons.has(index)) return;
 
     reason.classList.remove("hidden");
     card.classList.add("revealed");
-
     revealedReasons.add(index);
+    createHeart(window.innerWidth/2, window.innerHeight/2);
 
-    createHeart(
-        window.innerWidth/2,
-        window.innerHeight/2
-    );
-
-    if(revealedReasons.size===6){
-
-        document.getElementById("allReasons").textContent=
+    if(revealedReasons.size === 6){
+        document.getElementById("allReasons").textContent =
         "And after all these reasons... I still have a million more. I love you, Monwarty. ❤️";
-
     }
 }
 
-/* نظام الرسائل */
+/* ===================== الرسائل المحفوظة ===================== */
 
-const STORAGE_KEY="monwarty_love_v2";
+const STORAGE_KEY = "monwarty_love_v4";  // تم رفع الإصدار لأن البيانات تغيّرت من 3 إلى 5
 
 let data;
 
 try{
-    data=JSON.parse(localStorage.getItem(STORAGE_KEY));
+    data = JSON.parse(localStorage.getItem(STORAGE_KEY));
 }catch(e){
-    data=null;
+    data = null;
 }
 
 if(!data || !Number.isFinite(data.start) || !Array.isArray(data.opened)){
-    data={
-        start:Date.now(),
-        opened:[false,false,false]
+    data = {
+        start: Date.now(),
+        opened: [false,false,false,false,false]
     };
-    localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+    try{
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }catch(e){}
 }
 
-data.opened=[
+data.opened = [
     !!data.opened[0],
     !!data.opened[1],
-    !!data.opened[2]
+    !!data.opened[2],
+    !!data.opened[3],
+    !!data.opened[4]
 ];
 
-const letters=[
+const letters = [
 
 {
 title:"عندما تشتاقين إليّ ❤️",
@@ -636,70 +1028,107 @@ text:`ربما لا أقول ذلك كل مرة بالطريقة التي تست
 لا أعرف كيف سيكون شكل الأيام القادمة، لكنني أعرف أنني ممتن جدًا لأن طريقنا تقاطع في 3 نوفمبر 2022.
 
 أنتِ لستِ مجرد ذكرى جميلة؛ أنتِ شخص أتمنى أن أصنع معه ذكريات أجمل، وأن أختار حبه كل يوم، لا بالكلام فقط، بل بالاهتمام والصدق والأفعال.`
+},
+
+{
+title:"شيء أتمنى أن تشعري به دائمًا 🌷",
+text:`يا منورتي،
+
+أتمنى أن تشعري كل يوم أنكِ جميلة، وأنكِ كافية، وأنكِ تستحقين كل الحب الذي يأتيكِ.
+
+أتمنى أن تشعري بالأمان حين تكونين معي، وأن تعرفي أنكِ لستِ مضطرة لأن تكوني أحدًا آخر كي تُحبي أو تُحَبّي.
+
+أتمنى أن تشعري أن تعبكِ ومشاعركِ واهتمامكِ كلها مرئية، وأنها تعني لي أكثر مما تستطيع الكلمات أن تقول.
+
+وأكثر من أي شيء، أتمنى أن تشعري أنكِ محبوبة... ليس في الأيام الجميلة فقط، بل في كل يوم، وبكل تفاصيله.
+
+أنتِ تستحقين أن تشعري بذلك دائمًا، يا منورتي. ❤️`
+},
+
+{
+title:"لو عاد بي الزمن، لاخترتكِ من جديد 💍",
+text:`لو عاد بي الزمن إلى اللحظة التي لم أكن أعرفكِ فيها بعد، ثم عُرضت عليّ فرصة أن أعيش كل شيء من جديد، بكل تفاصيله، وبكل ما مررنا به...
+
+أظن أنني سأختار الطريق الذي يقودني إليكِ مرة أخرى.
+
+ليس لأن كل شيء كان مثاليًا، ولا لأننا لم نمر بلحظات صعبة، بل لأن وجودكِ في حياتي جعل أشياء كثيرة تستحق أن تُعاش.
+
+سأختار التعرف إليكِ من جديد، وسأختار ضحكاتنا، وأحاديثنا، وذكرياتنا الصغيرة التي ربما لا تعني شيئًا للعالم، لكنها تعني الكثير بالنسبة لي.
+
+وسأختاركِ مرة أخرى، ليس فقط في الأيام الجميلة، بل حتى في الأيام التي تحتاج فيها علاقتنا إلى صبر، وتفاهم، واهتمام.
+
+لأنكِ بالنسبة لي لستِ مجرد فصل جميل من الماضي، بل شخص أتمنى أن تكون له فصول أجمل في المستقبل.
+
+ولو سألتني يومًا عن أجمل قرار اتخذته دون أن أعرف كم سيغيّر حياتي، فسأقول: أنني أحببتكِ يا منورتي. ❤️`
 }
 
 ];
 
-const unlockAfter=[
+/* فترات الفتح: فوري، 6 ساعات، 12 ساعة، 18 ساعة، 24 ساعة */
+const unlockAfter = [
     0,
     6*60*60*1000,
-    12*60*60*1000
+    12*60*60*1000,
+    18*60*60*1000,
+    24*60*60*1000
 ];
 
 function elapsed(){
-    return Math.max(0,Date.now()-data.start);
+    return Math.max(0, Date.now() - data.start);
 }
 
 function canOpen(i){
-    return elapsed()>=unlockAfter[i];
+    return elapsed() >= unlockAfter[i];
 }
 
 function formatTime(ms){
-
-    ms=Math.max(0,ms);
-
-    let h=Math.floor(ms/3600000);
-    let m=Math.floor(ms%3600000/60000);
-    let s=Math.floor(ms%60000/1000);
-
+    ms = Math.max(0, ms);
+    let h = Math.floor(ms/3600000);
+    let m = Math.floor(ms%3600000/60000);
+    let s = Math.floor(ms%60000/1000);
     return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
 }
 
 function updateLetters(){
 
-    for(let i=0;i<3;i++){
+    for(let i=0;i<letters.length;i++){
 
-        const btn=document.getElementById("btn"+i);
-        const info=document.getElementById("info"+i);
+        const btn  = document.getElementById("btn"+i);
+        const info = document.getElementById("info"+i);
+
+        if(!btn || !info) continue;
 
         if(data.opened[i]){
-            btn.disabled=false;
-            btn.textContent="إعادة قراءة الرسالة ❤️";
-            info.textContent="هذه الرسالة أصبحت لكِ دائمًا.";
+            btn.disabled = false;
+            btn.textContent = "إعادة قراءة الرسالة ❤️";
+            info.textContent = "هذه الرسالة أصبحت لكِ دائمًا.";
         }
         else if(canOpen(i)){
-            btn.disabled=false;
-            btn.textContent="افتحي الرسالة 💌";
-            info.textContent="وصل وقت رسالتك.";
+            btn.disabled = false;
+            btn.textContent = "افتحي الرسالة 💌";
+            info.textContent = "وصل وقت رسالتك.";
         }
         else{
-            btn.disabled=true;
-            btn.textContent="🔒 مغلقة";
-            info.textContent="تفتح بعد: "+formatTime(unlockAfter[i]-elapsed());
+            btn.disabled = true;
+            btn.textContent = "🔒 مغلقة";
+            info.textContent = "تفتح بعد: " + formatTime(unlockAfter[i]-elapsed());
         }
+
     }
 }
 
 function showLetter(i){
 
-    if(!canOpen(i)&&!data.opened[i])return;
+    if(!canOpen(i) && !data.opened[i]) return;
 
-    data.opened[i]=true;
+    data.opened[i] = true;
 
-    localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+    try{
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }catch(e){}
 
-    document.getElementById("letterTitle").textContent=letters[i].title;
-    document.getElementById("letterBody").textContent=letters[i].text;
+    document.getElementById("letterTitle").textContent = letters[i].title;
+    document.getElementById("letterBody").textContent = letters[i].text;
 
     document.getElementById("letterDisplay").classList.remove("hidden");
 
@@ -711,182 +1140,226 @@ function showLetter(i){
     updateLetters();
 }
 
-/* عداد العلاقة */
+/* ===================== عداد العلاقة ===================== */
 
 function updateTimer(){
 
-    const start=new Date(2022,10,3,0,0,0);
+    const start = new Date(2022,10,3,0,0,0);
+    let diff = Math.max(0, Date.now() - start.getTime());
 
-    let diff=Math.max(0,Date.now()-start.getTime());
+    let days    = Math.floor(diff/86400000); diff %= 86400000;
+    let hours   = Math.floor(diff/3600000);  diff %= 3600000;
+    let minutes = Math.floor(diff/60000);    diff %= 60000;
+    let seconds = Math.floor(diff/1000);
 
-    let days=Math.floor(diff/86400000);
-    diff%=86400000;
-
-    let hours=Math.floor(diff/3600000);
-    diff%=3600000;
-
-    let minutes=Math.floor(diff/60000);
-    diff%=60000;
-
-    let seconds=Math.floor(diff/1000);
-
-    document.getElementById("timer").innerHTML=`
-
-        <div class="timebox">
-            <strong>${days}</strong>
-            <small>يوم</small>
-        </div>
-
-        <div class="timebox">
-            <strong>${hours}</strong>
-            <small>ساعة</small>
-        </div>
-
-        <div class="timebox">
-            <strong>${minutes}</strong>
-            <small>دقيقة</small>
-        </div>
-
-        <div class="timebox">
-            <strong>${seconds}</strong>
-            <small>ثانية</small>
-        </div>
-    `;
+    const timerEl = document.getElementById("timer");
+    if(timerEl){
+        timerEl.innerHTML = `
+            <div class="timebox"><strong>${days}</strong><small>يوم</small></div>
+            <div class="timebox"><strong>${hours}</strong><small>ساعة</small></div>
+            <div class="timebox"><strong>${minutes}</strong><small>دقيقة</small></div>
+            <div class="timebox"><strong>${seconds}</strong><small>ثانية</small></div>
+        `;
+    }
 
     updateLetters();
 }
 
-setInterval(updateTimer,1000);
+setInterval(updateTimer, 1000);
 updateTimer();
 
-/* القلوب المتحركة */
+/* ===================== قلوب متحركة ===================== */
 
 function createHeart(x,y){
-
-    const heart=document.createElement("div");
-
-    heart.className="floatHeart";
-
-    heart.textContent=["💗","❤️","💕","💘","💖"][
-        Math.floor(Math.random()*5)
-    ];
-
-    heart.style.left=x+"px";
-    heart.style.top=y+"px";
-
+    const heart = document.createElement("div");
+    heart.className = "floatHeart";
+    heart.textContent = ["💗","❤️","💕","💘","💖"][Math.floor(Math.random()*5)];
+    heart.style.left = x + "px";
+    heart.style.top  = y + "px";
     document.body.appendChild(heart);
-
-    setTimeout(()=>heart.remove(),1500);
+    setTimeout(()=>heart.remove(), 1500);
 }
 
-document.addEventListener("click",function(e){
-
+document.addEventListener("click", function(e){
     if(e.target.closest("button")){
-        createHeart(e.clientX,e.clientY);
+        createHeart(e.clientX, e.clientY);
     }
 });
 
-/* لعبة جمع 10 قلوب */
+/* ===================== رسائل الراحة ===================== */
 
-let score=0;
-let gameRunning=false;
-let gameTimers=[];
+const comfortMessages = [
 
-function spawnHeart(){
+`يا حبيبتي، لا بأس أن تحزني...
+لا يجب أن تتظاهري بالقوة طوال الوقت.
+أتمنى لو أستطيع أن أكون بجانبك الآن،
+وأخبرك أن كل شيء سيكون أخف بإذن الله.
+خذي وقتك، فأنتِ تستحقين الراحة والحنان. 🤍`,
 
-    if(!gameRunning)return;
+`يا منورتي، أعرف أن التعب يجعل كل شيء يبدو أثقل.
+لكن لا تنسي أنك لست مطالبة بإنجاز كل شيء اليوم.
+ارتاحي قليلًا، خذي نفسًا عميقًا،
+ودعي الأشياء تنتظر.
+أنتِ أهم من كل ما يستعجلك. 🌷`,
 
-    const area=document.getElementById("gameArea");
-    const heart=document.createElement("button");
+`لو كنتِ تشتاقين إليّ الآن،
+أتمنى أن تصلك هذه الكلمات كأنها حضن صغير.
+أنا أتمنى أن أكون قريبًا منك،
+وأن أسمع صوتك،
+وأن أطمئن على قلبك.
+أنتِ قريبة مني مهما كانت المسافات. ❤️`,
 
-    heart.className="gameHeart";
-    heart.textContent="💗";
+`أريد أن أذكرك بشيء:
+أنتِ جميلة، وغالية، وتستحقين الحب.
+ليس لأنك تفعلين شيئًا،
+بل لأنك أنتِ.
+لا تنسي قيمتك أبدًا،
+حتى في الأيام التي لا تشعرين فيها بها. 🤍`,
 
-    heart.style.left=Math.random()*85+"%";
-    heart.style.top=Math.random()*75+"%";
+`ابتسمي قليلًا يا منورتي،
+ليس لأن كل شيء مثالي،
+بل لأن هناك أشياء جميلة ما زالت تنتظرك.
+وربما تكون ابتسامتك الصغيرة اليوم
+بداية يوم أجمل مما تتوقعين. 🌸`
 
-    area.appendChild(heart);
+];
 
-    heart.onclick=function(){
-
-        if(!gameRunning)return;
-
-        score++;
-
-        document.getElementById("score").textContent=
-        "القلوب: "+score+" / 10";
-
-        const rect=heart.getBoundingClientRect();
-        createHeart(rect.left,rect.top);
-
-        heart.remove();
-
-        if(score>=10){
-
-            gameRunning=false;
-            gameTimers.forEach(clearTimeout);
-            gameTimers=[];
-
-            area.innerHTML="✨ لقد جمعتِ كل القلوب ✨";
-
-            document.getElementById("gameWin").classList.remove("hidden");
-
-            document.getElementById("startGame").textContent="إعادة اللعب";
-
-        }else{
-            spawnHeart();
-        }
-    };
-
-    const timer=setTimeout(()=>{
-
-        if(heart.isConnected && gameRunning){
-            heart.remove();
-            spawnHeart();
-        }
-
-    },4000);
-
-    gameTimers.push(timer);
+function comfort(index){
+    const box = document.getElementById("comfortMessage");
+    box.style.animation = "none";
+    void box.offsetWidth;
+    box.style.animation = "fadeIn .5s";
+    box.textContent = comfortMessages[index];
 }
 
-function startGame(){
+/* ===================== أمنيات النجوم ===================== */
 
-    gameTimers.forEach(clearTimeout);
-    gameTimers=[];
+const wishes = [
 
-    score=0;
-    gameRunning=true;
+"أتمنى أن يكون قلبك دائمًا مطمئنًا، وأن تجد السعادة في أبسط الأشياء. ❤️",
 
-    document.getElementById("score").textContent="القلوب: 0 / 10";
-    document.getElementById("gameWin").classList.add("hidden");
-    document.getElementById("gameArea").innerHTML="";
-    document.getElementById("startGame").textContent="اللعبة بدأت...";
+"أتمنى أن تجمعنا الأيام القادمة بالكثير من اللحظات الجميلة، وأن تبقى ضحكتك قريبة مني. 🌷",
 
-    for(let i=0;i<4;i++){
-        spawnHeart();
-    }
-}
+"أتمنى أن تتحقق أحلامك واحدة تلو الأخرى، وأن أراكِ دائمًا فخورة بنفسك. ✨",
 
-/* المفاجأة */
+"أمنيتي الصغيرة هي أن أكون سببًا في ابتسامة تظهر على وجهك كل يوم. 💗",
 
-function showSurprise(){
+"أتمنى لنا أيامًا مليئة بالصدق والحنان والذكريات الجميلة، وأن يبقى الحب بيننا دافئًا. 🌙"
 
-    document.getElementById("surpriseText").classList.remove("hidden");
+];
 
-    document.getElementById("surpriseText").scrollIntoView({
-        behavior:"smooth",
-        block:"center"
-    });
+function starWish(index){
+    const box = document.getElementById("starWish");
+    box.style.animation = "none";
+    void box.offsetWidth;
+    box.style.animation = "fadeIn .8s";
+    box.textContent = wishes[index];
 
-    for(let i=0;i<20;i++){
-
+    for(let i=0;i<5;i++){
         setTimeout(()=>{
             createHeart(
                 Math.random()*window.innerWidth,
                 window.innerHeight*.7
             );
-        },i*100);
+        },i*150);
+    }
+}
+
+/* ===================== لعبة جمع 10 قلوب ===================== */
+
+let score = 0;
+let gameRunning = false;
+let gameTimers = [];
+
+function clearGameTimers(){
+    gameTimers.forEach(clearTimeout);
+    gameTimers = [];
+}
+
+function spawnHeart(){
+    if(!gameRunning) return;
+
+    const area  = document.getElementById("gameArea");
+    const heart = document.createElement("button");
+
+    heart.className = "gameHeart";
+    heart.textContent = "💗";
+    heart.style.left = Math.random()*85 + "%";
+    heart.style.top  = Math.random()*75 + "%";
+
+    area.appendChild(heart);
+
+    heart.onclick = function(){
+        if(!gameRunning) return;
+
+        score++;
+        document.getElementById("score").textContent = "القلوب: " + score + " / 10";
+
+        const rect = heart.getBoundingClientRect();
+        createHeart(rect.left, rect.top);
+        heart.remove();
+
+        if(score >= 10){
+            gameRunning = false;
+            clearGameTimers();
+            area.innerHTML = "✨ لقد جمعتِ كل القلوب ✨";
+            document.getElementById("gameWin").classList.remove("hidden");
+            document.getElementById("startGame").textContent = "إعادة اللعب";
+        }else{
+            spawnHeart();
+        }
+    };
+
+    const timer = setTimeout(()=>{
+        if(heart.isConnected && gameRunning){
+            heart.remove();
+            spawnHeart();
+        }
+    }, 4000);
+
+    gameTimers.push(timer);
+}
+
+function startGame(){
+    clearGameTimers();
+    score = 0;
+    gameRunning = true;
+    document.getElementById("score").textContent = "القلوب: 0 / 10";
+    document.getElementById("gameWin").classList.add("hidden");
+    document.getElementById("gameArea").innerHTML = "";
+    document.getElementById("startGame").textContent = "اللعبة بدأت...";
+    for(let i=0;i<4;i++) spawnHeart();
+}
+
+/* ===================== المفاجأة والسر ===================== */
+
+function showSurprise(){
+    document.getElementById("surpriseText").classList.remove("hidden");
+    document.getElementById("surpriseText").scrollIntoView({
+        behavior:"smooth", block:"center"
+    });
+    for(let i=0;i<20;i++){
+        setTimeout(()=>{
+            createHeart(
+                Math.random()*window.innerWidth,
+                window.innerHeight*.7
+            );
+        }, i*100);
+    }
+}
+
+function openSecret(){
+    document.getElementById("secretText").classList.remove("hidden");
+    document.getElementById("secretText").scrollIntoView({
+        behavior:"smooth", block:"center"
+    });
+    for(let i=0;i<15;i++){
+        setTimeout(()=>{
+            createHeart(
+                Math.random()*window.innerWidth,
+                window.innerHeight*.7
+            );
+        }, i*120);
     }
 }
 
